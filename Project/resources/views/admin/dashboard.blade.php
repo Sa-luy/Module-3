@@ -1,4 +1,7 @@
 @extends('admin.main')
 @section('content')
-<h1>Dassboard</h1>
+{{-- @php
+    dd($user);
+@endphp --}}
+<h5>Hello {{Auth::user()->name}}</h5>
 @endsection

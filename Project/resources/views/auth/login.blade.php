@@ -24,26 +24,7 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 		      	<h3 class="mb-4 text-center">Haven't an account?<a href="{{ route('register')}}">Register</a></h3>
-                  <form method="POST" action="{{ route('password.confirm') }}">
-                    @csrf
-        
-                    <!-- Password -->
-                    <div>
-                        <x-label for="password" :value="__('Password')" />
-        
-                        <x-input id="password" class="block mt-1 w-full"
-                                        type="password"
-                                        name="password"
-                                        required autocomplete="current-password" />
-                    </div>
-        
-                    <div class="flex justify-end mt-4">
-                        <x-button>
-                            {{ __('Confirm') }}
-                        </x-button>
-                    </div>
-                </form>
-                    {{-- <form method="POST" action="{{ route('login') }}" class="signin-form">
+                    <form method="POST" action="{{ route('login') }}" class="signin-form">
                         @csrf
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Email" required name="email">
@@ -72,7 +53,7 @@
 									<a href="#" style="color: #fff">Forgot Password</a>
 								</div>
 	            </div>
-	          </form> --}}
+	          </form>
 	          <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
 	          <div class="social d-flex text-center">
 	          	<a href="#" class="px-2 py-2 mr-md-1 rounded" style="color: rgb(27, 2, 215)"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
