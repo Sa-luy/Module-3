@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +16,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->importCategories();
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+    }
+    public function importCategories()
+    {
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
     }
 }

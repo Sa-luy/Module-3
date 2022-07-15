@@ -9,7 +9,7 @@
         <a href="index.html" class="dash-nav-item">
             <i class="fas fa-home"></i> Dashboard </a>
         <div class="dash-nav-dropdown">
-            <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+            <a href="{{route('category.index')}}" class="dash-nav-item dash-nav-dropdown-toggle">
                 <i class="fas fa-chart-bar"></i> Category </a>
             <div class="dash-nav-dropdown-menu">
                 <a href="chartjs.html" class="dash-nav-dropdown-item">Chart.js</a>
