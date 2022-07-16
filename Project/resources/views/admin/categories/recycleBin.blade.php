@@ -22,7 +22,8 @@
                 <tr>
                     <th>{{ $category__trashed->id }}</th>
                     <td class="text-center">{{ $category__trashed->name }}</td>
-                    <td class="text-center">{{ $category__trashed->products->count() }}</td>
+                    <td>12</td>
+                    {{-- <td class="text-center">{{ $category__trashed->products->count() }}</td> --}}
                     <td><a href="{{ route('category.edit', $category__trashed->id) }}" class="btn btn-primary align-middle">Sửa</a>
                         <form action="{{ route('admin.category.restore', $category__trashed->id) }}" method="POST">
                             @csrf

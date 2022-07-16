@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->importCategories();
+        // $this->importCategories();
+        $this->importProducts();
 
         // \App\Models\User::factory(10)->create();
 
@@ -48,5 +49,108 @@ class DatabaseSeeder extends Seeder
         DB::table('categories')->insert([
             'name' => Str::random(10),
         ]);
+    }
+    public function importProducts()
+    {
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+        DB::table('products')->insert([
+            'name' => Str::random(10),
+            'price' => mt_rand(1000000, 9999999),
+            'amouth' =>mt_rand(10, 100),
+            'use' => Str::random(30),
+            'image' => 'C/Saluy/'.Str::random(20),
+            'status' => Str::random(30),
+            'description' => Str::random(30),
+            'category_id' => mt_rand(1, 12),
+        ]);
+      
+      
     }
 }

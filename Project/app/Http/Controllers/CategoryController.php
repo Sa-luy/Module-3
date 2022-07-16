@@ -21,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::paginate(15);
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.index',compact('categories'));
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoryController extends Controller
      * @param  \App\Http\Requests\StoreCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
 
         try {
@@ -107,11 +107,12 @@ class CategoryController extends Controller
             DB::beginTransaction();
             $category->name = $request->name;
             $category->save();
+            Db::commit();
             Session::flash('success', 'Chỉnh Sửa danh mục thành công');
             return redirect()->route('category.index');
         } catch (Exception $e) {
             DB::rollBack();
-            Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            Log::error('messages' . $e->getMessage() . '--->Line' . $e->getLine());
             abort(403);
         }
     }
@@ -133,7 +134,7 @@ class CategoryController extends Controller
             return redirect()->route('category.index');
         } catch (Exception $e) {
             DB::rollBack();
-            Log::error('Try again' . $e->getMessage() . '_____line' . $e->getLine());
+            Log::error('Try again' . $e->getMessage() . '_____>line' . $e->getLine());
             Session::flash('success', 'Xóa danh mục Lỗi!!! Hãy thử lại');
 
             return redirect()->route('category.index');

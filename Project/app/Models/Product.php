@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Category extends Model
+class Product extends Model
 {
     use HasFactory,SoftDeletes;
-    public function products()
+    public function category()
     {
-        return $this->hasMany(Product::class,'');
+        return $this->belongsTo(Category::class);
     }
 }

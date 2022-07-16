@@ -3,7 +3,7 @@
  
 <h1>Thêm  Danh Mục Sản Phẩm</h1>
 @error('msg')
-<div style="color: aliceblue" class="alter alert-primary text-center">{{$message}}</div>
+<div style="color: rgb(224, 18, 18)" class="alter alert-primary text-center">{{$message}}</div>
 @enderror
     <form action="{{ route('category.store') }}" method="POST">
         @csrf
