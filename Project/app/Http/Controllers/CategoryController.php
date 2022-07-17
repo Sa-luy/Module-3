@@ -152,6 +152,7 @@ class CategoryController extends Controller
             DB::beginTransaction();
             $category = Category::withTrashed()->where('id', $id)->restore();
             DB::commit();
+        Session::flash('success', 'Phục hồi danh mục thành công');
             return redirect()->route('category.index');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -159,5 +160,32 @@ class CategoryController extends Controller
             Session::flash('error', 'Phục hồi không thànnh công');
             return redirect()->route('category.index');
         }
+    }
+    public function forceDelete($id)
+    {
+        try {
+            DB::beginTransaction();
+            $category= Category::withTrashed()->find($id);
+            $product_categories=$category->products;
+            foreach ($product_categories as $key => $product_category) {
+            $product_category->category_id= null;
+            $product_category->save();
+            // dd($product_category);
+            }
+            $category->forceDelete();
+        DB::commit();
+        Session::flash('success', 'Xóa danh mục vĩnh viễn thành công');
+        return redirect()->route('category-trashed');
+        } catch (\Exception $e) {
+            DB::rollBack();
+        Session::flash('errors', 'Xóa danh mục vĩnh viễn lỗi!!! Hãy thử lại');
+        Log::error('messages' . $e->getMessage() . 'line________'.$e->getLine());
+        return redirect()->route('category-trashed');
+
+
+            
+        }
+        
+        
     }
 }

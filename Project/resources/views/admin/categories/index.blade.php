@@ -11,7 +11,7 @@
     <div class="input-group">
         {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
         <span class="input-group-btn">
-            <a href="{{route('admin.category.trashed')}}" class="btn btn-sm btn-default">Thùng Rác</a>
+            <a href="{{route('category-trashed')}}" class="btn btn-sm btn-danger">Thùng Rác</a>
         </span>
     </div>
     <table class="table table-striped table-hover align-middle">
@@ -28,8 +28,8 @@
                 <tr class="item-{{$category->id}}">
                     <th>{{ $category->id }}</th>
                     <td class="text-center">{{ $category->name }}</td>
-                    <td>12</td>
-                    {{-- <td class="text-center">{{ $category->products->count() }}</td> --}}
+                    {{-- <td>12</td> --}}
+                    <td class="text-center">{{ $category->products->count() }}</td>
                     <td>
                         <a href="{{ route('category.edit', $category->id) }}" class="btn btn-primary align-middle">Sửa</a>
                         <form action="{{ route('category.destroy', $category->id) }}" method="POST">

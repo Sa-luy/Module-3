@@ -5,7 +5,13 @@
     <a href="{{ route('category.create') }}" class="btn btn-primary ">THÊM</a>
     @if (Session::has('success'))
         <p class="text-success">
-            <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('success') }}
+        <h5 style="color: rgb(95, 10, 232)">{{ Session::get('success') }}</h5>
+
+        </p>
+    @endif
+    @if (Session::has('errors'))
+        <p class="text-success">
+        <h5 style="color: red">{{ Session::get('errors') }}</h5>
         </p>
     @endif
     <table class="table table-striped table-hover align-middle">
@@ -24,13 +30,20 @@
                     <td class="text-center">{{ $category__trashed->name }}</td>
                     <td>12</td>
                     {{-- <td class="text-center">{{ $category__trashed->products->count() }}</td> --}}
-                    <td><a href="{{ route('category.edit', $category__trashed->id) }}" class="btn btn-primary align-middle">Sửa</a>
+                    <td>
                         <form action="{{ route('admin.category.restore', $category__trashed->id) }}" method="POST">
                             @csrf
                             <button class="btn btn-danger align-middle" type="submit"
-                             onclick="return confirm('Bạn muốn khôi phục {{$category__trashed->name}} ?')">Restore</button>
+                                onclick="return confirm('Bạn muốn khôi phục {{ $category__trashed->name }} ?')">Restore</button>
+                        </form>
+                        <form action="{{ route('category-force-delete', $category__trashed->id) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger align-middle" type="submit"
+                                onclick="return confirm('Bạn muốn xóa vĩnh viễn  {{ $category__trashed->name }} ?')">Force
+                                Delete</button>
                         </form>
                     </td>
+
                 </tr>
             @endforeach
         </tbody>

@@ -1,11 +1,10 @@
 @extends('admin.main');
 @section('content')
 
-    <br>
-    <a href="{{ route('product.create') }}" class="btn btn-primary ">THÊM</a>
+   
     <div class="row">
-        <div class="col">
-             <h2>Danh Sách Sản Phẩm</h2>
+        <div class="col-6">
+             <h2>Danh Sách Sản Phẩm Đã Xóa</h2>
         </div>
         <div class="col">
                 @if (Session::has('success'))
@@ -16,14 +15,12 @@
         </div>
 
         <div class="col">
-            <div class="input-group">
-                {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
-                <span class="input-group-btn">
-                 <h2>   <a href="{{ route('product-trashed') }}" class="btn btn-sm btn-danger">Thùng Rác</a></h2>
-                </span>
-            </div>
+          
         </div>
     </div>
+    @if (count($producs_trasheds) == 0)
+    <p>Chưa có Sản Phẩm đã xóa</p> 
+    @else
     <table class="table table-bordered">
         {{-- <table class="table table-striped table-hover align-middle"> --}}
         <thead>
@@ -39,10 +36,9 @@
                 <th>Phụ Lục</th>
                 <th>Chức năng</th>
             </tr>
-            @if (count($products) == 0)
-                <p>Chưa có Sản Phẩm </p>
-            @else
-                @foreach ($products as $product)
+            
+           
+                @foreach ($producs_trasheds as $product)
                     <tr class="table-dark">
                         <td class="text-center">{{ $product->id }}</td>
                         <td>{{ $product->name }}</td>
@@ -56,13 +52,17 @@
                         <td class="word_break">{{ $product->description }}</td>
                         <td>{{ $product->use }}</td>
                         <td>{{ $product->status }}</td>
-                        <td><a href="{{ route('product.edit', $product->id) }}"
-                                class="btn btn-primary align-middle">Sửa</a>
-                            <form action="{{ route('product.destroy', $product->id) }}" method="POST">
+                        <td>
+                            <form action="{{ route('admin.product.restore', $product->id) }}" method="POST">
                                 @csrf
-                                @method('delete')
                                 <button class="btn btn-danger align-middle" type="submit"
-                                    onclick="return confirm('Bạn muốn xóa {{ $product->name }} ?')">Xóa</button>
+                                    onclick="return confirm('Bạn muốn khôi phục {{ $product->name }} ?')">Restore</button>
+                            </form>
+                            <form action="{{ route('product-force-delete', $product->id) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-danger align-middle" type="submit"
+                                    onclick="return confirm('Bạn muốn xóa vĩnh viễn  {{ $product->name }} ?')">Force
+                                    Delete</button>
                             </form>
                         </td>
                     </tr>

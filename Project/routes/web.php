@@ -32,8 +32,12 @@ Route::group(
   function () {
     //category
     Route::resource('category', CategoryController::class);
-    Route::get('category-trashed', [CategoryController::class, 'trashed'])->name('admin.category.trashed');
+    Route::get('category-trashed', [CategoryController::class, 'trashed'])->name('category-trashed');
     Route::post('category-trashed/{id}', [CategoryController::class, 'restore'])->name('admin.category.restore');
+    Route::post('category-forceDelete/{id}', [CategoryController::class, 'forceDelete'])->name('category-force-delete');
     //product
     Route::resource('product', ProductController::class);
+    Route::get('product-trashed', [ProductController::class, 'trashed'])->name('product-trashed');
+    Route::post('product-trashed/{id}', [ProductController::class, 'restore'])->name('admin.product.restore');
+    Route::post('product-forceDelete/{id}', [ProductController::class, 'forceDelete'])->name('product-force-delete');
   });

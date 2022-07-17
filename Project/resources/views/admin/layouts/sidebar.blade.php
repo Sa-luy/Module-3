@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="dash-nav-dropdown ">
-            <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+            <a href="{{route('product.index')}}" class="dash-nav-item dash-nav-dropdown-toggle">
                 <i class="fas fa-cube"></i> Product </a>
             <div class="dash-nav-dropdown-menu">
                 <a href="cards.html" class="dash-nav-dropdown-item">Cards</a>

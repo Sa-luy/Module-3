@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
@@ -157,13 +158,71 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-
+    { 
+        try {
+            DB::beginTransaction();
+            $product = Product::findOrFail($id);
         $product->delete();
+        DB::commit();
         Session::flash('success', 'Xóa sản phẩm thành công');
-        
-        return redirect()->back();
+        return redirect()->back();  
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Session::flash('errors', 'Xóa danh mục vĩnh viễn lỗi!!! Hãy thử lại');
+            Log::error('messages' . $e->getMessage() . 'line________'.$e->getLine());
+            return redirect()->route('category.index');
+            
+        }
+      
 
+    }
+    public function trashed()
+    {
+        $producs_trasheds = Product::onlyTrashed()->get();
+        return view('admin.products.recycleBin', compact('producs_trasheds'));
+    }
+
+    public function restore($id)
+    {
+        try {
+            DB::beginTransaction();
+            $category = Product::withTrashed()->where('id', $id)->restore();
+            DB::commit();
+        Session::flash('success', 'Phục hồi danh mục thành công');
+            return redirect()->route('product.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('error' . $e->getMessage() . '_____line' . $e->getLine());
+            Session::flash('error', 'Phục hồi không thànnh công');
+            return redirect()->route('product.index');
+        }
+    }
+
+    public function forceDelete($id)
+    {
+        try {
+            DB::beginTransaction();
+            $product= Product::withTrashed()->find($id);
+            // $product_categories=$category->products;
+            // foreach ($product_categories as $key => $product_category) {
+            // $product_category->category_id= null;
+            // $product_category->save();
+            // dd($product_category);
+            // }
+            $product->forceDelete();
+        DB::commit();
+        Session::flash('success', 'Xóa danh mục vĩnh viễn thành công');
+        return redirect()->route('product-trashed');
+        } catch (\Exception $e) {
+            DB::rollBack();
+        Session::flash('errors', 'Xóa danh mục vĩnh viễn lỗi!!! Hãy thử lại');
+        Log::error('messages' . $e->getMessage() . 'line________'.$e->getLine());
+        return redirect()->route('product-trashed');
+
+
+            
+        }
+        
+        
     }
 }
