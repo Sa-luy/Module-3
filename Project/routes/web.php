@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,11 @@ Route::group(
     Route::get('product-trashed', [ProductController::class, 'trashed'])->name('product-trashed');
     Route::post('product-trashed/{id}', [ProductController::class, 'restore'])->name('admin.product.restore');
     Route::post('product-forceDelete/{id}', [ProductController::class, 'forceDelete'])->name('product-force-delete');
+    //User
+    Route::resource('user', UserController::class);
+
+
   });
+
 
 
