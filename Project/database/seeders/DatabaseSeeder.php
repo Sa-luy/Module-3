@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,10 +16,12 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
+    
     public function run()
     {
         // $this->importCategories();
-        $this->importProducts();
+        // $this->importProducts();
+        $this->importUsers();
 
         // \App\Models\User::factory(10)->create();
 
@@ -152,5 +156,56 @@ class DatabaseSeeder extends Seeder
         ]);
       
       
+    }
+    public function importUsers()
+    {
+        DB::table('users')->insert([  
+            'name' => 'saluy_admin',
+            'email' => 'saluy_admin@gmail.com',
+            'password' => Hash::make('12345678'),
+            'phone' => '0947281265',
+            'address' =>'Gio Hai',
+            'day_of_birth' => Carbon::create('1992', '01', '01'),
+            'image' => Str::random(5),
+         ]);
+        DB::table('users')->insert([  
+            'name' => 'saluy_user',
+            'email' => 'saluy_user@gmail.com',
+            'password' => Hash::make('12345678'),
+            'phone' => '0947281265',
+            'address' =>'Gio Hai',
+            'day_of_birth' => Carbon::create('1992', '01', '01'),
+            'image' => Str::random(5),
+         ]);
+        DB::table('users')->insert([  
+            'name' => 'saluy_guest',
+            'email' => 'saluy_guest@gmail.com',
+            'password' => Hash::make('12345678'),
+            'phone' => '0947281265',
+            'address' =>'Gio Hai',
+            'day_of_birth' => Carbon::create('1992', '01', '01'),
+            'image' => Str::random(5),
+         ]);
+        DB::table('users')->insert([  
+            'name' => 'saluy_developer',
+            'email' => 'saluy_developer@gmail.com',
+            'password' => Hash::make('12345678'),
+            'phone' => '0947281265',
+            'address' =>'Gio Hai',
+            'day_of_birth' => Carbon::create('1992', '01', '01'),
+            'image' => Str::random(5),
+         ]);
+         for($i=1;$i<=10;$i++){
+        DB::table('users')->insert([  
+            'name' => Str::random(5).'_'.Str::random(3),
+            'email' => Str::random(10).'@gmail.com',
+            'password' => Hash::make('12345678'),
+            'phone' => '+849'.mt_rand(10000, 99999),
+            'address' =>Str::random(5).' '.Str::random(5).' '.Str::random(5),
+            'day_of_birth'  => Carbon::create('1992', '01', '01'),
+            'image' => Str::random(5),
+         ]);
+        }
+        
     }
 }
