@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,12 @@ Route::group(
     Route::get('user-trashed', [UserController::class, 'trashed'])->name('user-trashed');
     Route::post('user-trashed/{id}', [UserController::class, 'restore'])->name('admin.user.restore');
     Route::post('user-forceDelete/{id}', [UserController::class, 'forceDelete'])->name('user-force-delete');
+    //role
+    Route::resource('role', RoleController::class);
+    Route::get('role-trashed', [RoleController::class, 'trashed'])->name('role-trashed');
+    Route::post('role-trashed/{id}', [RoleController::class, 'restore'])->name('admin.role.restore');
+    Route::post('role-forceDelete/{id}', [RoleController::class, 'forceDelete'])->name('role-force-delete');
+
 
 
   });

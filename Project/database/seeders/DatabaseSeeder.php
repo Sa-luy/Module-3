@@ -19,9 +19,10 @@ class DatabaseSeeder extends Seeder
     
     public function run()
     {
-        $this->importCategories();
-        $this->importProducts();
-        $this->importUsers();
+        // $this->importCategories();
+        // $this->importProducts();
+        // $this->importUsers();
+        $this->importRoles();
 
         // \App\Models\User::factory(10)->create();
 
@@ -211,5 +212,23 @@ class DatabaseSeeder extends Seeder
             'image' => Str::random(5),
          ]);
        
+    }
+    public function importRoles(){
+        DB::table('roles')->insert([
+            'name' => 'superAdmin',
+            'display_name' => 'Quản trị hệ thống',
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'admin',
+            'display_name' => 'điều hành hệ thống',
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'developer',
+            'display_name' => 'phát triển hệ thống',
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'guest',
+            'display_name' => 'khách hàng',
+        ]);
     }
 }

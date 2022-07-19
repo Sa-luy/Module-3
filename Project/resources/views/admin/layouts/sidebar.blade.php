@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="dash-nav-dropdown">
-            <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+            <a href="{{route('role.index')}}" class="dash-nav-item dash-nav-dropdown-toggle">
                 <i class="fas fa-info"></i> Role </a>
             <div class="dash-nav-dropdown-menu">
                 <a href="https://github.com/subet/easion" target="_blank" class="dash-nav-dropdown-item">GitHub</a>
