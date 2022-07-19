@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
     
     public function run()
     {
-        // $this->importCategories();
-        // $this->importProducts();
+        $this->importCategories();
+        $this->importProducts();
         $this->importUsers();
 
         // \App\Models\User::factory(10)->create();
@@ -32,6 +32,21 @@ class DatabaseSeeder extends Seeder
     }
     public function importCategories()
     {
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
+        DB::table('categories')->insert([
+            'name' => Str::random(10),
+        ]);
         DB::table('categories')->insert([
             'name' => Str::random(10),
         ]);
@@ -75,7 +90,7 @@ class DatabaseSeeder extends Seeder
             'image' => 'C/Saluy/'.Str::random(20),
             'status' => Str::random(30),
             'description' => Str::random(30),
-            'category_id' => mt_rand(1, 12),
+            'category_id' => mt_rand(1, 5),
         ]);
       
         DB::table('products')->insert([
@@ -195,17 +210,6 @@ class DatabaseSeeder extends Seeder
             'day_of_birth' => Carbon::create('1992', '01', '01'),
             'image' => Str::random(5),
          ]);
-         for($i=1;$i<=10;$i++){
-        DB::table('users')->insert([  
-            'name' => Str::random(5).'_'.Str::random(3),
-            'email' => Str::random(10).'@gmail.com',
-            'password' => Hash::make('12345678'),
-            'phone' => '+849'.mt_rand(10000, 99999),
-            'address' =>Str::random(5).' '.Str::random(5).' '.Str::random(5),
-            'day_of_birth'  => Carbon::create('1992', '01', '01'),
-            'image' => Str::random(5),
-         ]);
-        }
-        
+       
     }
 }

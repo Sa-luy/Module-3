@@ -1,4 +1,4 @@
-<footer class="footerad pt-3  " style="background-color: rgb(147, 197, 232); color: write">
+<footer class="footerad pt-3  " style="background-color: rgb(14, 239, 52); ">
     <div class="container-fluid">
         <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">

@@ -1,18 +1,33 @@
 @extends('admin.main');
 @section('content')
-    <h1>Danh mục Sản Phẩm</h1>
-
-    <a href="{{ route('category.create') }}" class="btn btn-primary ">THÊM</a>
-    @if (Session::has('success'))
-        <p class="text-success">
-            <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('success') }}
-        </p>
-    @endif
-    <div class="input-group">
-        {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
-        <span class="input-group-btn">
-            <a href="{{route('category-trashed')}}" class="btn btn-sm btn-danger">Thùng Rác</a>
-        </span>
+    <h1>
+        Danh mục Sản Phẩm</h1>
+    <div class="row">
+        <div class="col">
+            <a href="{{ route('category.create') }}" class="btn btn-primary ">THÊM</a>
+        </div>
+        <div class="col">
+            @if (Session::has('success'))
+                <p class="text-success">
+                    <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('success') }}
+                </p>
+            @endif
+        </div>
+        <div class="col">
+            @if (Session::has('erors'))
+                <p class="text-success">
+                    <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('erors') }}
+                </p>
+            @endif
+        </div>
+        <div class="col input-group">
+            {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
+            <span class="input-group-btn">
+                <a href="{{ route('category-trashed') }}" class="btn btn-sm btn-danger">
+                    <button type="subit" class="btn btn-labeled btn-danger">
+                        <span class="btn-label"><i class="fa fa-trash"></i>Đã xóa</span></button></a>
+            </span>
+        </div>
     </div>
     <table class="table table-striped table-hover align-middle">
         <thead>
@@ -25,7 +40,7 @@
         </thead>
         <tbody>
             @foreach ($categories as $category)
-                <tr class="item-{{$category->id}}">
+                <tr class="item-{{ $category->id }}">
                     <th>{{ $category->id }}</th>
                     <td class="text-center">{{ $category->name }}</td>
                     {{-- <td>12</td> --}}
@@ -35,19 +50,19 @@
                         <form action="{{ route('category.destroy', $category->id) }}" method="POST">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-danger align-middle" type="submit" onclick="return confirm('Bạn muốn xóa {{$category->name}} ?')">Xóa</button>
+                            <button class="btn btn-danger align-middle" type="submit"
+                                onclick="return confirm('Bạn muốn xóa {{ $category->name }} ?')">Xóa</button>
                         </form>
-                       
+
                         {{-- <a href="#" id="{{ $category->id }}" class="text-danger mx-1 deleteIcon"><i
                             class="bi-trash h4 h4"></i></a > --}}
-                        </td>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
-        <script>
- 
-        </script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
     </table>
+    {{ $categories->links() }}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 @endsection

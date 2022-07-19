@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr;
 
-class AdminUserControler extends Controller
+class UserController extends Controller
 {
     private $user;
     private $role;
@@ -27,13 +27,19 @@ class AdminUserControler extends Controller
     }
     public function index()
     {
-        $users = $this->user->paginate(10);
-        return view('admin.user.index', compact('users'));
+        $users = $this->user->latest()->paginate(5);
+        return view('admin.users.index', compact('users'));
     }
+    public function show($id)
+    {
+        $user = $this->user->findOrFail($id);
+        return view('admin.users.show', compact('user'));
+    }
+
     public function create()
     {
-        $roles = $this->role->all();
-        return view('admin.user.add', compact('roles'));
+        // $roles = $this->role->all();
+        return view('admin.users.add',);
     }
     public function store(Request $request)
     {
@@ -46,62 +52,82 @@ class AdminUserControler extends Controller
         ]);
         try {
             DB::beginTransaction();
-            $users = $this->user->create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'password' => Hash::make($request->password),
-            ]);
-            $users->roles()->attach($request->role_id);
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->day_of_birth = $request->day_of_birth;
+            $user->password = Hash::make($request->password);
+            if ($request->hasFile('image')) {
+                $file = $request->image;
+                $fileExtension = $file->getClientOriginalExtension(); //jpg,png lấy ra định dạng file và trả về
+                $fileName = time(); //45678908766 tạo tên file theo thời gian
+                $newFileName = $fileName . '.' . $fileExtension; //45678908766.jpg
+                // $product->image = $newFileName;// cột image gán bằng tên file mới
+                $request->file('image')->storeAs('public/images/user', $newFileName); //lưu file vào mục public/images với tê mới là $newFileName
+                $user->image = $newFileName;
+            }
+            $user->save();
+            // $user->roles()->attach($request->role_id);
             DB::commit();
-            Session::flash('messages', 'Thêm  thành công');
+            Session::flash('success', 'Thêm  thành công');
 
-            return redirect()->route('users.index');
+            return redirect()->route('user.index');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            return redirect()->back();
         }
     }
     public function edit($id)
     {
-        $roles = $this->role->all();
+        // $roles = $this->role->all();
         $user = $this->user->findOrFail($id);
-        $rolesUser = $user->roles;
+        // $rolesUser = $user->roles;
         // echo '<pre>';
         // print_r($rolesUser);
         // die();
 
-        return view('admin.user.edit', compact('roles', 'user', 'rolesUser'));
+        return view('admin.users.edit', compact('user'));
     }
-    public function update(Request $request, $id)
-    {
 
+    public function update(Request $request, User $user)
+    {
+        dd($request);
         try {
-            DB::beginTransaction();
-            $this->user->findOrFail($id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'password' => Hash::make($request->password),
-            ]);
-            $users = $this->user->findOrFail($id);
-            $users->roles()->sync($request->role_id);
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->address = $request->address;
+            $user->password = Hash::make($request->password);
+            if ($request->hasFile('image')) {
+                $file = $request->file;
+                $fileExtension = $file->getClientOriginalExtension(); //jpg,png lấy ra định dạng file và trả về
+                $fileName = time(); //45678908766 tạo tên file theo thời gian
+                $newFileName = $fileName . '.' . $fileExtension; //45678908766.jpg
+                // $product->image = $newFileName;// cột image gán bằng tên file mới
+                $request->file('image')->storeAs('public/images/user', $newFileName); //lưu file vào mục public/images/user với tê mới là $newFileName
+                $user->image = $newFileName;
+            }
+
+            // $users = $this->user->findOrFail($id);
+            // $users->roles()->sync($request->role_id);
             DB::commit();
             Session::flash('messages', 'Update thành công');
-
             return redirect()->route('users.index');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
         }
     }
+
     public function trashed()
     {
         try {
-            $users = $this->user->onlyTrashed()->get();
-            return view('admin.user.recycle', compact('users'));
+            $users = $this->user->onlyTrashed()->paginate(5);
+            return view('admin.users.recycle', compact('users'));
         } catch (Exception $e) {
             abort(403);
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
@@ -113,24 +139,24 @@ class AdminUserControler extends Controller
         try {
             $user = $this->user->findOrFail($id);
             $user->delete();
-            Session::flash('messages', 'Đã chuyển vào thùng rác');
-            return redirect()->route('users.index');
+            Session::flash('success', 'Đã chuyển vào thùng rác');
+            return redirect()->route('user.index');
         } catch (Exception $e) {
             abort(403);
             Log::eror('messages' . $e->getMessage() . '---Line' . $e->getLine());
         }
     }
 
-  
+
 
     //khôi phục thùng rác
     public function restore($id)
     {
         try {
-           $user=$this->user->withTrashed()->where('id', $id)->restore();;
+            $user = $this->user->withTrashed()->where('id', $id)->restore();;
 
-            Session::flash('messages', 'Phục Hồi thành công');
-            return redirect()->route('users.index');
+            Session::flash('success', 'Phục Hồi thành công');
+            return redirect()->route('user.index');
         } catch (Exception $e) {
             abort(403);
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());

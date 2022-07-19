@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -20,9 +22,14 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
+            'password' => Hash::make('12345678'),
+            'phone' => '+849' . mt_rand(100000, 999990),
+            'address' => Str::random(5) . ' ' . Str::random(5) . ' ' . Str::random(5),
+            'day_of_birth'  => Carbon::create('1992', '01', '01'),
+            'image' => Str::random(5),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+
         ];
     }
 

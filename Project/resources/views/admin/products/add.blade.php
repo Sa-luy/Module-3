@@ -1,5 +1,6 @@
 @extends('admin.main');
 @section('content')
+    <style>
         .form-select {
             padding: 8;
             margin: 0px !important;
@@ -103,9 +104,9 @@
             <td>
                 <label for="exampleInputEmail1" class="form-label">Phụ Lục</label>
                 <div class="mb-3">
-                    <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    name="status" cols="100" rows="5"></textarea>
-                
+                    <textarea type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="status"
+                        cols="100" rows="5"></textarea>
+
                     @if ($errors->any())
                         <div style="color: red" class="form-text">{{ $errors->first('status') }}</div>
                     @endif

@@ -27,7 +27,7 @@ class ProductController extends Controller
     {
         // $this->authorize('viewAny', Product::class);
         // $user=Auth::user();
-        $products = Product::all();
+        $products = Product::latest()->paginate(5);
         return view('admin.products.index', compact('products'));
     }
 
@@ -157,6 +157,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy($id)
     { 
         try {

@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,18 +20,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/dashboard', function () {
   return view('admin.dashboard');
-})->middleware('auth')->name('dashboard');
+})->name('dashboard');
+
+
+
 
 require __DIR__.'/auth.php';
 Route::group(
   [
-      'prefix' => 'admin',
-      'middleware' => ['auth']
+    'prefix' => 'admin',
+    'middleware' => ['auth']
   ],
   function () {
+    //dashboard
+    Route::get('/dashboard',DashboradController::class)->name('dashboard');
     //category
     Route::resource('category', CategoryController::class);
     Route::get('category-trashed', [CategoryController::class, 'trashed'])->name('category-trashed');
@@ -44,6 +48,9 @@ Route::group(
     Route::post('product-forceDelete/{id}', [ProductController::class, 'forceDelete'])->name('product-force-delete');
     //User
     Route::resource('user', UserController::class);
+    Route::get('user-trashed', [UserController::class, 'trashed'])->name('user-trashed');
+    Route::post('user-trashed/{id}', [UserController::class, 'restore'])->name('admin.user.restore');
+    Route::post('user-forceDelete/{id}', [UserController::class, 'forceDelete'])->name('user-force-delete');
 
 
   });

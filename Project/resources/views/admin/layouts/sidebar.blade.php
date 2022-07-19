@@ -3,7 +3,7 @@
         <a href="#!" class="menu-toggle">
             <i class="fas fa-bars"></i>
         </a>
-        <a href="index.html" class="easion-logo"><i class="fas fa-sun"></i> <span>Easion</span></a>
+        <a href="{{route('dashboard')}}" class="easion-logo"><i class="fas fa-sun"></i> <span>Easion</span></a>
     </header>
     <nav class="dash-nav-list">
         <a href="index.html" class="dash-nav-item">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="dash-nav-dropdown">
-            <a href="#" class="dash-nav-item dash-nav-dropdown-toggle">
+            <a href="{{route('user.index')}}" class="dash-nav-item dash-nav-dropdown-toggle">
                 <i class="fas fa-file"></i> User</a>
             <div class="dash-nav-dropdown-menu">
                 <a href="blank.html" class="dash-nav-dropdown-item">Blank</a>
