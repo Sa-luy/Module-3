@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboradController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -17,13 +19,25 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/dashboard', function () {
   return view('admin.dashboard');
 })->name('dashboard');
+//home
+Route::get('/',[HomeController::class,'home'] )->name('home');
+Route::group(
+  [
+      'prefix' => 'guest',
+  ],
+  function () {
+  Route::get('product_show/{id}', [HomeController::class, 'showProduct'])->name('guest.product_show');
+  Route::get('category_show/{id}', [HomeController::class, 'showCategory'])->name('guest.category_show');
+  // cart
+  Route::get('show-cart', [CartController::class, 'showCart'])->name('showCart');
+  Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+  Route::get('update-to-cart', [CartController::class, 'updateToCart'])->name('updateToCart');
+  Route::get('delete-to-cart', [CartController::class, 'deleteToCart'])->name('deleteToCart');
+});
+
 
 
 

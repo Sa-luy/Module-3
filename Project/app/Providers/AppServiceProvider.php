@@ -2,7 +2,9 @@
  
  namespace App\Providers;
 
- use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
@@ -28,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         $user=Auth::user();
-        View::share('user', $user);
+        $categories= Category::paginate(5);
+        $products_home = Product::all();
+        View::share([
+        'user'=> $user,
+        'categories'=>$categories,
+        'products_home' =>$products_home
+    ]);
     }
 }
