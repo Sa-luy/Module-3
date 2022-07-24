@@ -57,4 +57,24 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class,'role_user','role_id','user_id');
+    }
+    public function hasPermission($permissionCheck)
+    {
+        //b1 laasy dc tat car quyen cura user dang login vao he thong
+        //b2so sanh gia trij cura route hien tai voiws casc quyen o buoc 1
+        //neu co return true, neu khong return fasle
+        $roles =auth()->user()->roles;
+       foreach ($roles as  $role){
+      $permission_name = $role->permissions;
+      if($permission_name->contains('name',$permissionCheck)){
+        return true;
+      }
+    }
+    return false;
+
+    }
+
 }

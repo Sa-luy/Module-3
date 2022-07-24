@@ -2,85 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
-use App\Http\Requests\StorePermissionRequest;
-use App\Http\Requests\UpdatePermissionRequest;
+use App\Models\permission;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.permissions.add');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePermissionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePermissionRequest $request)
+    
+    public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePermissionRequest  $request
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePermissionRequest $request, Permission $permission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Permission $permission)
-    {
-        //
+        DB::beginTransaction();
+        try {
+                 $permissionParent = new Permission();
+            $permissionParent->name = $request->module ;
+            $permissionParent->group_name = $request->module;
+            $permissionParent->group_key = 0;
+            $permissionParent->save();
+        
+        foreach ($request->permission_ids as  $item) {
+            $permission = new Permission();
+            $permission->name = $request->module . '_' . $item;
+            $permission->group_name = $request->module;
+            $permission->group_key = $permissionParent->id;
+            $permission->save();
+            DB::commit();
+        }
+        Session::flash('messages', 'Phân quyền thành công');
+        return redirect()->route('dashboard');   
+        } catch (Exception $e) {
+            DB::rollBack();
+           Log::error('messages'.$e->getMessage().'---Line'.$e->getLine());
+           abort(403);
+        }
+    
     }
 }

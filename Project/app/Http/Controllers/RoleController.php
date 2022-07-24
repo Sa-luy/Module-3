@@ -2,89 +2,143 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
+use PDO;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    private $role;
+    public function __construct(Role $role, Permission $permission,)
+    {
+        $this->role = $role;
+        $this->permission = $permission;
+    }
+
     public function index()
     {
-        $roles=Role::paginate(5);
-        $params=[
-            'roles'=>$roles,
-        ];
-        return view('admin.roles.index',$params);
-
+        try {
+            $roles = $this->role->where('deleted_at', '=', null)->paginate(10);
+            return view('admin.roles.index', compact('roles'));
+        } catch (\Exception $e) {
+            Log::error('messages' . $e->getMessage() . '_____line' . $e->getLine());
+            abort(403);
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('admin.roles.add');
+        try {
+            DB::beginTransaction();
+            $permissions = $this->permission->where('group_key', '=', 0)->get();
+            foreach ($permissions as $permission)
+            $permissionsChilds = $permission->permissionChild;
+            DB::commit();
+            return view('admin.roles.add', compact('permissions', 'permissionsChilds'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('messages' . $e->getMessage() . '_____line' . $e->getLine());
+            abort(403);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
+            $role = new Role();
+            $role->name = $request->name;
+            $role->display_name = $request->display_name;
+            $role->save();
+            $role->permissions()->attach($request->permission_ids);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+            DB::commit();
+            Session::flash('messages', 'Đã thêm vai trò');
+            return redirect()->route('role.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('messages' . $e->getMessage() . '_____line' . $e->getLine());
+            abort(403);
+        }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+        $permissions = $this->permission->where('group_key', 0)->get();
+        $role = $this->role->findOrFail($id);
+        $permissionsChecked = $role->permissions;
+        // dd($permissionsChecked);
+        return view('admin.roles.edit', compact('role', 'permissions', 'permissionsChecked'));
+    } catch (\Exception $e) {
+        DB::rollBack();
+        Log::error('messages' . $e->getMessage() . '_____line' . $e->getLine());
+        abort(403);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    }
     public function update(Request $request, $id)
     {
-        //
+        $role = $this->role->findOrFail($id);
+        try {
+            DB::beginTransaction();
+            $role->name = $request->name;
+            $role->display_name = $request->display_name;
+            $role->save();
+            $role->permissions()->sync($request->permission_ids);
+            DB::commit();
+            Session::flash('messages', 'Đã cập nhật vai trò');
+            return redirect()->route('role.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('messages' . $e->getMessage() . '_____line' . $e->getLine());
+            abort(403);
+        }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $role = $this->role->findOrFail($id);
+            $role->deleted_at = date('Y-m-d H:i:s');
+            $role->save();
+            DB::commit();
+            Session::flash('messages', 'Đã chuyển vào thùng rác');
+            return redirect()->route('role.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::eror('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            abort(403);
+        }
+    }
+    public function recycleBin()
+    {
+        try {
+            $roles = $this->role->where('deleted_at', '!=', null)->paginate(10);
+            return view('admin.roles.recycle', compact('roles'));
+        } catch (Exception $e) {
+            Log::eror('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            abort(403);
+        }
+    }
+    public function rehibilitate($id)
+    {
+        
+        try {
+            $role = $this->role->findOrFail($id);
+            
+            $role->deleted_at = null;
+            $role->save();
+            Session::flash('messages', 'Phục Hồi thành công');
+            return redirect()->route('role.index');
+        } catch (Exception $e) {
+            abort(403);
+            Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+        }
     }
 }

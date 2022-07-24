@@ -19,40 +19,41 @@
                         {{-- <button class="btn btn-sm btn-default" type="submit">Search</button> --}}
                     </div>
                     <div class="col-sm-4">
+                        @if (Session::has('messages'))
+                            <p class="text-success">
+                                <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('messages') }}
+                            </p>
+                        @endif
                     </div>
                     <div class="col-sm-3">
                         <div class="input-group">
                             {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
                             <img src="{{ asset('images/hinh-anh-dong-hoat-hinh.gif') }}" alt="" width="100px">
                         </div>
-                        @if (Session::has('messages'))
-                            <p class="text-success">
-                                <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('messages') }}
-                            </p>
-                        @endif
+
 
                     </div>
                 </div>
                 <div class="panel-heading">
-                    <h3>Thêm Role</h3>
+                    <h3>Edit Role</h3>
                 </div>
                 <div class="col-md-12">
-                    <form action="{{route('role.store')}}" method="POST">
+                    <form action="{{ route('role.update', $role->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         <p>Định danh Vai trò :</p>
-                        <input type="text" name="name" class="input-sm form-control"value="{{ old('name') }}">
+                        <input type="text" name="name" class="input-sm form-control" value="{{ $role->name }}">
                         <p>Mô Tả Vai trò:</p>
-                        <textarea name="display_name" id="" cols="100" rows="5" class="input-sm form-control" value="{{ old('display_name') }}"></textarea>
+                        <textarea name="display_name" id="" cols="100" rows="5" class="input-sm form-control"
+                            value="{{ $role->display_name }}">{{ $role->display_name }}</textarea>
 
                         {{-- carrd --}}
                         <div class="col-md-12">
                             <div class="col-12 form-check form-switch">
-                                <label >
-                                    <input class="form-check-input checkbox_all" type="checkbox"
-                                    role="switch">
+                                <label>
+                                    <input class="form-check-input checkbox_all" type="checkbox" role="switch">
                                     Check All</label>
                             </div>
-
                             @foreach ($permissions as $permission)
                                 <div class="container">
                                     <div class="card border-primary mb-3">
@@ -69,12 +70,13 @@
                                         </div>
                                         <div class="card-body text-primary">
                                             <div class="row">
-                                                @foreach ($permissionsChilds as $permissionChild)
+                                                @foreach ($permission->permissionChild as $permissionChildItem)
                                                     <div class="col form-check form-switch ">
                                                         <input class="form-check-input checkbox_child"
                                                             name="permission_ids[]" type="checkbox" role="switch"
-                                                            value="{{$permissionChild->id}}">
-                                                        {{ $permissionChild->name }}
+                                                            {{ $permissionsChecked->contains('id', $permissionChildItem->id) ? 'checked' : '' }}
+                                                            value="{{ $permissionChildItem->id }}">
+                                                        {{ $permissionChildItem->name }}
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -83,7 +85,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <input type="submit" class="btn btn-primary" value="ADD">
+                        <input type="submit" class="btn btn-primary" value="Save">
                     </form>
                 </div>
 

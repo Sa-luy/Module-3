@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('group_name');
             $table->unsignedBigInteger('group_key');
-            $table->foreign('group_key');
             $table->timestamps();
         });
     }

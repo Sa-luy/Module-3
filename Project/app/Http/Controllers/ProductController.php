@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', Product::class);
+        $this->authorize('product_viewAll', Product::class);
         // $user=Auth::user();
         $products = Product::latest()->paginate(5);
         return view('admin.products.index', compact('products'));
@@ -36,8 +36,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Product $product)
     {
+        // $this->authorize('product_add',$product);
 
         $categories= Category::all();
         return view('admin.products.add',compact('categories'));

@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         // $this->importCategories();
         // $this->importProducts();
         // $this->importUsers();
-        $this->importRoles();
+        // $this->importRoles();
+        $this->importPemission();
 
         // \App\Models\User::factory(10)->create();
 
@@ -230,5 +231,68 @@ class DatabaseSeeder extends Seeder
             'name' => 'guest',
             'display_name' => 'khách hàng',
         ]);
+    }
+    public function importPemission(){
+        DB::table('permissions')->insert([
+            'name' =>'user',
+            'group_name' =>'user',
+            'group_key' =>'0',
+        ]);
+        DB::table('permissions')->insert([
+            'name' =>'product',
+            'group_name' =>'product',
+            'group_key' =>'0',
+        ]);
+        DB::table('permissions')->insert([
+            'name' =>'role',
+            'group_name' =>'role',
+            'group_key' =>'0',
+        ]);
+        DB::table('permissions')->insert([
+            'name' =>'category',
+            'group_name' =>'category',
+            'group_key' =>'0',
+        ]);
+        DB::table('permissions')->insert([
+            'name' =>'order',
+            'group_name' =>'order',
+            'group_key' =>'0',
+        ]);
+        $pemisions=['viewAll','view','add','edit','delete','restore','forceDelete'];
+        foreach ($pemisions as $pemision){
+            DB::table('permissions')->insert([
+                    'name' =>$pemision.'_user',
+                    'group_name' =>'user',
+                    'group_key' =>'1',
+                ]);
+        }
+        foreach ($pemisions as $pemision){
+            DB::table('permissions')->insert([
+                    'name' =>$pemision.'_product',
+                    'group_name' =>'product',
+                    'group_key' =>'2',
+                ]);
+        }
+        foreach ($pemisions as $pemision){
+            DB::table('permissions')->insert([
+                    'name' =>$pemision.'_role',
+                    'group_name' =>'role',
+                    'group_key' =>'3',
+                ]);
+        }
+        foreach ($pemisions as $pemision){
+            DB::table('permissions')->insert([
+                    'name' =>$pemision.'_category',
+                    'group_name' =>'category',
+                    'group_key' =>'4',
+                ]);
+        }
+        foreach ($pemisions as $pemision){
+            DB::table('permissions')->insert([
+                    'name' =>$pemision.'_order',
+                    'group_name' =>'order',
+                    'group_key' =>'5',
+                ]);
+        }
     }
 }

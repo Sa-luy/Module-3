@@ -53,5 +53,13 @@
              
             </div>
         </div>
+        <div class="dash-nav-dropdown">
+            <a href="{{route('permissions.create')}}" class="dash-nav-item dash-nav-dropdown-toggle">
+                <i class="fas fa-info"></i>Dữ liệu permission</a>
+            <div class="dash-nav-dropdown-menu">
+                <a href="https://github.com/subet/easion" target="_blank" class="dash-nav-dropdown-item">>>></a>
+             
+            </div>
+        </div>
     </nav>
 </div>

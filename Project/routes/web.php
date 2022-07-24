@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,11 @@ Route::group(
     Route::get('role-trashed', [RoleController::class, 'trashed'])->name('role-trashed');
     Route::post('role-trashed/{id}', [RoleController::class, 'restore'])->name('admin.role.restore');
     Route::post('role-forceDelete/{id}', [RoleController::class, 'forceDelete'])->name('role-force-delete');
+    //permissions
+    Route::prefix('/permissions')->group(function () {
+      Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
+      Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
+  });
 
 
 
