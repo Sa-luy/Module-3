@@ -1,42 +1,21 @@
 @extends('admin.main');
 @section('content')
-    <style>
-        h6 span {
-            text-decoration-line: line-through;
-        }
-     
-    </style>
-    @php
+    <div class="category">
+        <center><div class="mb-3">
+            <b for="category" class="form-label">Tên Danh Mục :</b>
+            <h5 class="text-success">{{ $category->name }}</h5>
+        </div></center>
+        
+        <div class="mb-3">
 
-    @endphp
-    <div class="row">
-        @foreach ($category_products as $category_product)
-            <div class="col-lg-3">
-                <img src="{{ asset('storage/images/' . $category_product->image) }}" alt="">
-            </div>
-        @endforeach
-    </div>
-    <div class="row">
-
-        @foreach ($category_products as $category_product)
-            <div class="col-lg-3">
-
-               <h6><a style=" white-space:unset;" href="{{route('product.show',$category_product->id)}}"> {{ $category_product->name }} </a></h6> 
-            </div>
-        @endforeach
-        <div class="row">
-
-            @foreach ($category_products as $category_product)
-                <div class="col-lg-3">
-
-                    <h6>Giá Gốc :<span>{{ number_format($category_product->price + 76000) }}</span><sup>đ</sup></h6>
-                    <h6 style="color: red">Giá sale: <label for="">{{ number_format($category_product->price - 1) }} </label>
-                        <sup>đ</sup></h6>
-                </div>
-        @endforeach
-
-
-
+            <b for="category" class="form-label">Sản phẩm trong danh mục :</b>
+            @foreach ($products_category as $product_category)
+          <p> <a href="{{ route('product.show', $product_category->id) }}"
+            style="text-decoration: none"
+                class="text-center">{{$product_category->name}}</a></p> 
+            @endforeach
 
         </div>
-    @endsection
+
+    </div>
+@endsection

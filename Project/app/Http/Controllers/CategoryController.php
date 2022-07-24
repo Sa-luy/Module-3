@@ -66,11 +66,11 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //      $products= Product::all();
+            //  $products= Product::all();
 
         // $categories_id = Category::findOrFail($id);
-        // $category_products=$categories_id->products;
-        // return view('admin.categories.show', compact('category_products','products'));
+        $products_category = $category->products ;
+        return view('admin.categories.show', compact('category','products_category'));
 
     }
 

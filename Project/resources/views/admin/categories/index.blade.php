@@ -35,7 +35,7 @@
                 <th scope="col">Mã danh mục</th>
                 <th scope="col">Tên danh mục</th>
                 <th scope="col">số lượng sản phẩm</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col" class="text-center">Thao tác</th>
             </tr>
         </thead>
         <tbody>
@@ -46,16 +46,25 @@
                     {{-- <td>12</td> --}}
                     <td class="text-center">{{ $category->products->count() }}</td>
                     <td>
-                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-primary align-middle">Sửa</a>
-                        <form action="{{ route('category.destroy', $category->id) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button class="btn btn-danger align-middle" type="submit"
-                                onclick="return confirm('Bạn muốn xóa {{ $category->name }} ?')">Xóa</button>
-                        </form>
+                        <label class="row">
+                              <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"><a href="{{ route('category.show', $category->id) }}"
+                                    class="btn btn-primary align-middle">Xem</a></div>
+                            <div class="col"><a href="{{ route('category.edit', $category->id) }}"
+                                    class="btn btn-primary align-middle">Sửa</a></div>
+                            <div class="col">
+                                <form action="{{ route('category.destroy', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger align-middle" type="submit"
+                                        onclick="return confirm('Bạn muốn xóa {{ $category->name }} ?')">Xóa</button>
+                                </form>
+                            </div>
+                          
 
-                        {{-- <a href="#" id="{{ $category->id }}" class="text-danger mx-1 deleteIcon"><i
-                            class="bi-trash h4 h4"></i></a > --}}
+
+                        </label>
                     </td>
                 </tr>
             @endforeach

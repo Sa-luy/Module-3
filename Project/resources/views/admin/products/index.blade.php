@@ -26,7 +26,7 @@
             </div>
         </div>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-striped">
         {{-- <table class="table table-striped table-hover align-middle"> --}}
         <thead>
             <tr>
@@ -45,27 +45,35 @@
                 <p>Chưa có Sản Phẩm </p>
             @else
                 @foreach ($products as $product)
-                    <tr class="table-dark">
+                    <tr>
                         <td class="text-center">{{ $product->id }}</td>
                         <td>{{ $product->name }}</td>
                         <td>{{ $product->price }}</td>
                         <td>{{ $product->amouth }}</td>
                         <td>{{ $product->category->name ?? 'chưa nhập danh mục' }}</td>
                         <td>
-                            <img src="{{ asset('storage/images/' . $product->image) }}" alt=""
-                                style="width: 100px">
+                            <img src="{{ asset('storage/images/' . $product->image) }}" alt="" style="width: 100px">
                         </td>
                         <td class="word_break">{{ $product->description }}</td>
                         <td>{{ $product->use }}</td>
                         <td>{{ $product->status }}</td>
-                        <td><a href="{{ route('product.edit', $product->id) }}"
-                                class="btn btn-primary align-middle">Sửa</a>
-                            <form action="{{ route('product.destroy', $product->id) }}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger align-middle" type="submit"
-                                    onclick="return confirm('Bạn muốn xóa {{ $product->name }} ?')">Xóa</button>
-                            </form>
+                        <td>
+                            <div class="row">
+                                <div class="col"><a href="{{ route('product.show', $product->id) }}"
+                                        class="btn btn-primary align-middle">Xem</a></div>
+                                <div class="col"><a href="{{ route('product.edit', $product->id) }}"
+                                        class="btn btn-primary align-middle">Sửa</a></div>
+                                <div class="col">
+                                    <form action="{{ route('product.destroy', $product->id) }}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger align-middle" type="submit"
+                                            onclick="return confirm('Bạn muốn xóa {{ $product->name }} ?')">Xóa</button>
+                                    </form>
+                                </div>
+
+
+                            </div>
                         </td>
                     </tr>
                 @endforeach

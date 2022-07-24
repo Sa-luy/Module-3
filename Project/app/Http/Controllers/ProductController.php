@@ -25,8 +25,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $this->authorize('product_viewAll', Product::class);
-        // $user=Auth::user();
         $products = Product::latest()->paginate(5);
         return view('admin.products.index', compact('products'));
     }
@@ -38,7 +36,6 @@ class ProductController extends Controller
      */
     public function create(Product $product)
     {
-        // $this->authorize('product_add',$product);
 
         $categories= Category::all();
         return view('admin.products.add',compact('categories'));
@@ -91,12 +88,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $categories, $id)
+    public function show(Product $product)
     {
         // $product =  Product::find($id);
-        // $products= Product::all();
-        // $categories= Category::all();
-        // return view('admin.products.show', compact('product','categories','products'));
+       
+        return view('admin.products.show', compact('product'));
     }
 
     /**
