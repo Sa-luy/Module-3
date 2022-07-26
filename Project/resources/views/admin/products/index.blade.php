@@ -4,9 +4,11 @@
     <br>
     <h2>Danh Sách Sản Phẩm</h2>
     <div class="row">
-        <div class="col">
-            <a href="{{ route('product.create') }}" class="btn btn-primary ">THÊM</a>
-        </div>
+        @can('create', App\Models\Product::class)
+            <div class="col">
+                <a href="{{ route('product.create') }}" class="btn btn-primary ">THÊM</a>
+            </div>
+        @endcan
         <div class="col">
             @if (Session::has('success'))
                 <p class="text-success">
@@ -26,6 +28,9 @@
             </div>
         </div>
     </div>
+    @if (count($products) == 0)
+    <p>Chưa có Sản Phẩm </p>
+@else
     <table class="table table-striped">
         {{-- <table class="table table-striped table-hover align-middle"> --}}
         <thead>
@@ -36,14 +41,12 @@
                 <th>Số Lượng</th>
                 <th>Danh Mục Sản Phẩm</th>
                 <th>Ảnh Thu nhỏ</th>
-                <th>Chi Tiết Sản Phẩm</th>
-                <th>Cách dùng</th>
-                <th>Phụ Lục</th>
+                {{-- <th>Chi Tiết Sản Phẩm</th> --}}
+                {{-- <th>Cách dùng</th> --}}
+                {{-- <th>Phụ Lục</th> --}}
                 <th>Chức năng</th>
             </tr>
-            @if (count($products) == 0)
-                <p>Chưa có Sản Phẩm </p>
-            @else
+          
                 @foreach ($products as $product)
                     <tr>
                         <td class="text-center">{{ $product->id }}</td>
@@ -54,9 +57,9 @@
                         <td>
                             <img src="{{ asset('storage/images/' . $product->image) }}" alt="" style="width: 100px">
                         </td>
-                        <td class="word_break">{{ $product->description }}</td>
-                        <td>{{ $product->use }}</td>
-                        <td>{{ $product->status }}</td>
+                        {{-- <td class="word_break">{{ $product->description }}</td> --}}
+                        {{-- <td>{{ $product->use }}</td> --}}
+                        {{-- <td>{{ $product->status }}</td> --}}
                         <td>
                             <div class="row">
                                 <div class="col"><a href="{{ route('product.show', $product->id) }}"

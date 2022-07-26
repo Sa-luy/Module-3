@@ -38,8 +38,9 @@ class UserController extends Controller
 
     public function create()
     {
-        // $roles = $this->role->all();
-        return view('admin.users.add',);
+        $roles = $this->role->all();
+        $params=['roles'=>$roles];
+        return view('admin.users.add',$params);
     }
     public function store(Request $request)
     {
@@ -69,7 +70,7 @@ class UserController extends Controller
                 $user->image = $newFileName;
             }
             $user->save();
-            // $user->roles()->attach($request->role_id);
+            $user->roles()->attach($request->role_id);
             DB::commit();
             Session::flash('success', 'Thêm  thành công');
 
@@ -82,44 +83,51 @@ class UserController extends Controller
     }
     public function edit($id)
     {
-        // $roles = $this->role->all();
+        $roles = $this->role->all();
         $user = $this->user->findOrFail($id);
-        // $rolesUser = $user->roles;
-        // echo '<pre>';
-        // print_r($rolesUser);
-        // die();
-
-        return view('admin.users.edit', compact('user'));
+        foreach($user->roles as $role){
+         
+           $user_role[] =  $role->id;
+        };
+        $params=[
+            'roles'=>$roles,
+            'user' =>$user,
+            'user_role'=> $user_role
+        ];
+        return view('admin.users.edit', $params);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        dd($request);
+            $user = $this->user->findOrFail($id);
+        
         try {
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileExtension = $file->getClientOriginalExtension(); //jpg,png lấy ra định dạng file và trả về
+            $fileName = time(); //45678908766 tạo tên file theo thời gian
+            $newFileName = $fileName . '.' . $fileExtension; //45678908766.jpg
+            // $product->image = $newFileName;// cột image gán bằng tên file mới
+            $request->file('image')->storeAs('public/images/user', $newFileName); //lưu file vào mục public/images/user với tê mới là $newFileName
+            $user->image = $newFileName;
+        }
+       
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            $user->address = $request->address;
-            $user->password = Hash::make($request->password);
-            if ($request->hasFile('image')) {
-                $file = $request->file;
-                $fileExtension = $file->getClientOriginalExtension(); //jpg,png lấy ra định dạng file và trả về
-                $fileName = time(); //45678908766 tạo tên file theo thời gian
-                $newFileName = $fileName . '.' . $fileExtension; //45678908766.jpg
-                // $product->image = $newFileName;// cột image gán bằng tên file mới
-                $request->file('image')->storeAs('public/images/user', $newFileName); //lưu file vào mục public/images/user với tê mới là $newFileName
-                $user->image = $newFileName;
-            }
-
+        $user->save();
             // $users = $this->user->findOrFail($id);
-            // $users->roles()->sync($request->role_id);
+            $user->roles()->sync($request->role_id);
             DB::commit();
-            Session::flash('messages', 'Update thành công');
-            return redirect()->route('users.index');
+            Session::flash('success', 'Update thành công');
+            return redirect()->route('user.index');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            return redirect()->route('user.index');
+
         }
     }
 
@@ -163,19 +171,19 @@ class UserController extends Controller
         }
     }
     //focre delete
-    // public function delete(Request $request){
+    public function delete(Request $request){
 
-    // $validated = $request->validate(
-    //     [
-    //         'ids' => 'required',
-    //     ],
-    //     [
-    //         'ids.required' => 'Bạn phải chọn ô',
-    //     ],
-    // );
-    //    $id=$request->post;
-    //    $this->user::whereIn('id', $id)->delete();
-    //    return redirect()->route('users.index')->with('messages', 'Xóa user thành công');
-    // }
+    $validated = $request->validate(
+        [
+            'ids' => 'required',
+        ],
+        [
+            'ids.required' => 'Bạn phải chọn ô',
+        ],
+    );
+       $id=$request->post;
+       $this->user::whereIn('id', $id)->delete();
+       return redirect()->route('users.index')->with('messages', 'Xóa user thành công');
+    }
 
 }

@@ -20,6 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Category::class);
         $categories = Category::latest()->paginate(5);
         return view('admin.categories.index',compact('categories'));
     }
@@ -31,6 +32,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Category::class);
         return view('admin.categories.add');
     }
 
@@ -42,16 +44,16 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-
+        $this->authorize('create', Category::class);
         try {
             DB::beginTransaction();
             $category = new Category();
             $category->name = $request->name;
             $category->save();
+            DB::commit();
             Session::flash('success', 'Thêm danh mục thành công');
 
             return redirect()->route("category.index");
-            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
@@ -66,9 +68,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-            //  $products= Product::all();
+        $this->authorize('view', Category::class);
 
-        // $categories_id = Category::findOrFail($id);
         $products_category = $category->products ;
         return view('admin.categories.show', compact('category','products_category'));
 
@@ -82,6 +83,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('update', Category::class);
         try {
             DB::beginTransaction();
             $id = $category->id;
@@ -103,6 +105,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        $this->authorize('update', Category::class);
+
         try {
             DB::beginTransaction();
             $category->name = $request->name;
@@ -125,6 +129,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete', Category::class);
+
         $category = Category::findOrFail($id);
         try {
             DB::beginTransaction();
@@ -142,12 +148,14 @@ class CategoryController extends Controller
     }
     public function trashed()
     {
+        $this->authorize('delete', Category::class);
         $categories_trashed = Category::onlyTrashed()->get();
         return view('admin.categories.recycleBin', compact('categories_trashed'));
     }
 
     public function restore($id)
     {
+        $this->authorize('delete', Category::class);
         try {
             DB::beginTransaction();
             $category = Category::withTrashed()->where('id', $id)->restore();
@@ -163,6 +171,7 @@ class CategoryController extends Controller
     }
     public function forceDelete($id)
     {
+        $this->authorize('delete', Category::class);
         try {
             DB::beginTransaction();
             $category= Category::withTrashed()->find($id);

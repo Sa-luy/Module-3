@@ -32,16 +32,16 @@
     <table class="table table-striped table-hover align-middle">
         <thead>
             <tr>
-                <th scope="col">Mã danh mục</th>
+                <th scope="col">STT</th>
                 <th scope="col">Tên danh mục</th>
                 <th scope="col">số lượng sản phẩm</th>
                 <th scope="col" class="text-center">Thao tác</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($categories as $category)
+            @foreach ($categories as $key =>$category)
                 <tr class="item-{{ $category->id }}">
-                    <th>{{ $category->id }}</th>
+                    <th>{{ $key+1 }}</th>
                     <td class="text-center">{{ $category->name }}</td>
                     {{-- <td>12</td> --}}
                     <td class="text-center">{{ $category->products->count() }}</td>

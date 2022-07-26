@@ -12,7 +12,7 @@
                     <th> Địa chỉ</th>
                     <th> Ngày tháng năm sinh</th>
                     <th> Ảnh</th>
-                    
+
                     <th> Thao tác</th>
                 </tr>
             </thead>
@@ -25,11 +25,11 @@
                     <td>{{ $user->address }}</td>
                     <td>{{ $user->day_of_birth }}</td>
                     <td>
-                        <img src="{{ asset('storage/images/user/'. $user->image ) }}" alt=""
-                            style="height: 100px">
+                        <img src="{{ asset('storage/images/user/' . $user->image) }}" alt="" style="height: 100px">
                     </td>
-                        <a href="{{route('user.edit',$user->id)}}">Edit</a>
-                        <form action="">
+                    <td>
+                        <a href="{{ route('user.edit', $user->id) }}">Edit</a>
+                        <form action=""@method('POST')>1
                             <input type="submit" value="DElete">
                         </form>
                     </td>

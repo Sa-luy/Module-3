@@ -59,21 +59,40 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function roles(){
-        return $this->belongsToMany(Role::class,'role_user','role_id','user_id');
+        return $this->belongsToMany(Role::class,'role_user','user_id','role_id');
     }
     public function hasPermission($permissionCheck)
     {
         //b1 laasy dc tat car quyen cura user dang login vao he thong
         //b2so sanh gia trij cura route hien tai voiws casc quyen o buoc 1
         //neu co return true, neu khong return fasle
+
+        // $permissionCheck= 'product_forceDelete';
+
+        $permission_list=[];
+
         $roles =auth()->user()->roles;
-       foreach ($roles as  $role){
-      $permission_name = $role->permissions;
-      if($permission_name->contains('name',$permissionCheck)){
-        return true;
-      }
-    }
-    return false;
+        foreach ($roles as $key => $role) {
+            foreach ($role->permissions as  $permission){
+                $permission_list[$permission->name] = $permission->toArray();
+
+            }
+            
+        }
+        sort($permission_list);
+
+        $permission_list = collect($permission_list);
+
+        return $permission_list->contains('name',$permissionCheck);
+
+
+    //    foreach ($roles as  $role){
+    //   $permission_name = $role->permissions;
+    //   if($permission_name->contains('name',$permissionCheck)){
+    //     return true;
+    //   }
+    // }
+    // // return false;
 
     }
 

@@ -27,7 +27,7 @@
                     <form method="POST" action="{{ route('login') }}" class="signin-form">
                         @csrf
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Email" required name="email">
+		      			<input type="text" class="form-control" placeholder="Email" required name="email" value="{{old('email')}}">
                           @if ($errors->any())
                           <div style="color: red" class="form-text">{{ $errors->first('email') }}</div>
                       @endif

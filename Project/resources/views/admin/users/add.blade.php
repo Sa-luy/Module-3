@@ -58,6 +58,19 @@
                     <p style="color:red">{{ $errors->first('day_of_birth') }}</p>
                 @endif
             </div>
+            <div class="mb-3">
+                <x-label for="role_id" :value="__('Chon Vai tro')" />
+                <select class="js-example-basic-multiple form-control" name="role_id[]" multiple="multiple">
+                   
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}" {{$role->id==4?'selected':''}}
+                            >{{ $role->name }}</option>
+                    @endforeach
+                </select>
+                @if($errors->any())
+                <p style="color:red"> {{$errors->first('email')}}</p>
+             @endif
+            </div>
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Ảnh</label>

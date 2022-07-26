@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('fullname');
             $table->string('email');
             $table->string('phone');
-            $table->string('order_date');
+            $table->date('order_date');
             $table->string('notes');
             $table->enum('status',['yes','no']);
             $table->string('totalmoney');

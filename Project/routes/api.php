@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,11 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']);    
 });
+Route::group([
+    'middleware' => 'api',
+    
+
+], function ($router) {
+    Route::apiResource('orders', OrderController::class);
+});
+

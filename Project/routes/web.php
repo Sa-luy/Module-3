@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -59,6 +60,13 @@ Route::group(
     Route::post('category-forceDelete/{id}', [CategoryController::class, 'forceDelete'])->name('category-force-delete');
     //product
     Route::resource('product', ProductController::class);
+    // Route::get('product', [ProductController::class, 'index'])->name('product.index');
+    // Route::get('product.create', [ProductController::class, 'create'])->name('product.create');
+    // Route::get('product.show/{id}', [ProductController::class, 'show'])->name('product.show');
+    // Route::get('product.edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+    // Route::get('product.destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+
     Route::get('product-trashed', [ProductController::class, 'trashed'])->name('product-trashed');
     Route::post('product-trashed/{id}', [ProductController::class, 'restore'])->name('admin.product.restore');
     Route::post('product-forceDelete/{id}', [ProductController::class, 'forceDelete'])->name('product-force-delete');
@@ -72,15 +80,20 @@ Route::group(
     Route::get('role-trashed', [RoleController::class, 'trashed'])->name('role-trashed');
     Route::post('role-trashed/{id}', [RoleController::class, 'restore'])->name('admin.role.restore');
     Route::post('role-forceDelete/{id}', [RoleController::class, 'forceDelete'])->name('role-force-delete');
+    Route::resource('orders', OrderController::class);
+
+    
     //permissions
     Route::prefix('/permissions')->group(function () {
       Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
       Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
+      //orders
   });
 
 
 
   });
+  
 
 
 

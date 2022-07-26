@@ -18,7 +18,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return  $user->hasPermission('category_viewAll');
     }
 
     /**
@@ -28,9 +28,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Category $category)
+    public function view(User $user)
     {
-        //
+        return  $user->hasPermission('category_view');
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoryPolicy
      */
     public function create(User $user)
     {
-        //
+        return  $user->hasPermission('category_add');
     }
 
     /**
@@ -51,9 +51,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Category $category)
+    public function update(User $user)
     {
-        //
+        return  $user->hasPermission('category_edit');
     }
 
     /**
@@ -63,9 +63,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Category $category)
+    public function delete(User $user )
     {
-        //
+        return  $user->hasPermission('category_delete');
     }
 
     /**
@@ -77,7 +77,7 @@ class CategoryPolicy
      */
     public function restore(User $user, Category $category)
     {
-        //
+        return  $user->hasPermission('category_restore');
     }
 
     /**
@@ -89,6 +89,6 @@ class CategoryPolicy
      */
     public function forceDelete(User $user, Category $category)
     {
-        //
+        return  $user->hasPermission('category_forceDelete');
     }
 }

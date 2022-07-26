@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Policies\CategoryPolicy;
 use App\Policies\ProductPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -16,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
-        // Product::class => ProductPolicy::class,
+        Product::class => ProductPolicy::class,
+        Category::class => CategoryPolicy::class,
     ];
 
     /**
@@ -29,11 +32,12 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Paginator::useBootstrap();
+        // Gate::resource('products', ProductPolicy::class);
+        // Gate::resource('category', CategoryPolicy::class);
         //  định nghĩaphân quyền gate
-        Gate::define('product-viewAll', function ($user) {
-         return  $user->hasPermission('product');
-        });
-        // Gate::define('product-view', [ProductPolicy::class,'view']);
+        // Gate::define('product-viewAll', function ($user) {
+        //  return  $user->hasPermission('product_viewAll');
+        // });
 
     }
 }

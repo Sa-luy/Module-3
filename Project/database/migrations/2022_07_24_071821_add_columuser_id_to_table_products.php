@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('group_name');
-            $table->unsignedBigInteger('group_key');
-            $table->foreign('group_key');
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::table('products', function (Blueprint $table) {
+            //
+        });
     }
 };

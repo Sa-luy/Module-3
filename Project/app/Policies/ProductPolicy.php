@@ -18,7 +18,8 @@ class ProductPolicy
      */
     public function viewAny(User $user)
     {
-        // return  true;
+       
+       return  $user->hasPermission('product_viewAll');
     }
 
     /**
@@ -30,8 +31,7 @@ class ProductPolicy
      */
     public function view(User $user)
     {
-        // return true;
-        // return  $user->hasPermission('view_product');
+        return  $user->hasPermission('product_view');
     }
 
     /**
@@ -40,9 +40,9 @@ class ProductPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create()
+    public function create(User $user)
     {
-        return true;
+        return  $user->hasPermission('product_add');
     }
 
     /**
@@ -52,9 +52,9 @@ class ProductPolicy
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Product $product)
+    public function update(User $user)
     {
-        //
+        return  $user->hasPermission('product_edit');
     }
 
     /**
@@ -64,9 +64,9 @@ class ProductPolicy
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Product $product)
+    public function delete(User $user)
     {
-        //
+        return  $user->hasPermission('product_delete');  
     }
 
     /**
@@ -76,9 +76,9 @@ class ProductPolicy
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Product $product)
+    public function restore(User $user)
     {
-        //
+        return  $user->hasPermission('product_restore');  
     }
 
     /**
@@ -88,8 +88,8 @@ class ProductPolicy
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Product $product)
+    public function forceDelete(User $user)
     {
-        //
+        return  $user->hasPermission('product_forceDelete');  
     }
 }
