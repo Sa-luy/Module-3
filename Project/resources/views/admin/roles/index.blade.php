@@ -89,7 +89,8 @@
                     <footer class="panel-footer">
                         <div class="row">
                             <div class="col-sm-5 text-center">
-                                <small class="text-muted inline m-t-sm m-b-sm">showing 1-5 of {{count($roles)}} items</small>
+                                <small class="text-muted inline m-t-sm m-b-sm">showing 1-5 of {{ count($roles) }}
+                                    items</small>
                             </div>
                             <div class="col-sm-7 text-right text-center-xs">
                                 <ul class="pagination pagination-sm m-t-none m-b-none">
@@ -102,14 +103,14 @@
             </div>
         </div>
         <script>
-            jQuery(document).ready(function() {
-                jQuery('.deleteIcon').click( function(){
-                    let id= jQuery(this).data('id')
-                    alert(id)
-                } )
-                Try me! 
+            // jQuery(document).ready(function() {
+            //     jQuery('.deleteIcon').click( function(){
+            //         let id= jQuery(this).data('id')
+            //         alert(id)
+            //     } )
+            //     Try me! 
 
-            });
+            // });
             $(function() {
                 $('.deleteIcon').on('click', deleteRole)
             })
@@ -118,32 +119,41 @@
                 event.preventDefault();
                 let url = $(this).data('url');
                 let id = $(this).data('id');
-                // alert(url)
-                jQuery.ajax({
-                    type: "delete",
-                    'url': url,
-                    'data': {
-                        id: id,
-                        _token: "{{ csrf_token() }}",
-                    },
-                    dataType: 'json',
-                    success: function(data, ) {
-                        if (data.status === 1) {
-                            window.location.reload();
-                            alert(data.messages)
-                                
-                        }
-                    },
-                    error: function(data) {
-                        if (data.status === 0) {
-                            alert(data.messages)
-                        }
+                Swal.fire({
+                    title: "Are you sure delete{{$role->name}}?",
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        jQuery.ajax({
+                            type: "delete",
+                            'url': url,
+                            'data': {
+                                id: id,
+                                _token: "{{ csrf_token() }}",
+                            },
+                            dataType: 'json',
+                            success: function(data, ) {
+                                if (data.status === 1) {
+                                    // window.location.reload();
+                                    // alert(data.messages)
+
+                                }
+                            },
+                            error: function(data) {
+                                if (data.status === 0) {
+                                    alert(data.messages)
+                                }
+                            }
+                        });
+
                     }
 
-
-
-                });
-
+                })
             }
         </script>
     @endsection
