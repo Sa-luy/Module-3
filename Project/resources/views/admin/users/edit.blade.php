@@ -2,6 +2,9 @@
 @section('content')
     <div>
         <h3>Sửa thông tin Người dùng</h3>
+        @error('msg')
+        <h3 style="color: rgb(232, 13, 16); height:40px;" class="alter alert-primary text-center">{{ $message }}</h3>
+    @enderror
         <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -9,30 +12,45 @@
                 <label for="exampleInputEmail1" class="form-label">Tên</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name"
                     value="{{ $user->name }}">
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('name') }}</p>
+                @endif
             </div>
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     name="email" value="{{ $user->email }}">
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('email') }}</p>
+                @endif
             </div>
 
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Phone</label>
                 <input type="number" class="form-control" id="exampleInputPassword1" name="phone"
                     value="{{ $user->phone }}">
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('phone') }}</p>
+                @endif
             </div>
 
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Dia chi</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     name="address" value="{{ $user->address }}">
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('phone') }}</p>
+                @endif
             </div>
             
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Ngay Sinh</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     name="day_of_birth" value="{{ $user->day_of_birth }}">
+                    @if ($errors->any())
+                    <p style="color:red">{{ $errors->first('phone') }}</p>
+                @endif
             </div>
 
             <div class="mb-3">
@@ -51,7 +69,7 @@
                     @endforeach
                 </select>
                 @if($errors->any())
-                <p style="color:red"> {{$errors->first('email')}}</p>
+                <p style="color:red"> {{$errors->first('role_id')}}</p>
              @endif
             </div>
 

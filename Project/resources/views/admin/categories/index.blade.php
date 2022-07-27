@@ -46,25 +46,44 @@
                     {{-- <td>12</td> --}}
                     <td class="text-center">{{ $category->products->count() }}</td>
                     <td>
-                        <label class="row">
+                        {{-- <label class="row">
                               <div class="col"></div>
                             <div class="col"></div>
                             <div class="col"><a href="{{ route('category.show', $category->id) }}"
-                                    class="btn btn-primary align-middle">Xem</a></div>
+                                    class="align-middle show"><i class="fa-solid fa-eye"></i></a></div>
                             <div class="col"><a href="{{ route('category.edit', $category->id) }}"
-                                    class="btn btn-primary align-middle">Sửa</a></div>
+                                    class=" align-middle show"><i class="fa-solid fa-file-pen"></i></a></div>
                             <div class="col">
                                 <form action="{{ route('category.destroy', $category->id) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button class="btn btn-danger align-middle" type="submit"
-                                        onclick="return confirm('Bạn muốn xóa {{ $category->name }} ?')">Xóa</button>
+                                    {{-- <input type="submit" value="DElete"> --}}
+                                    {{-- <button type="subit" class="btn btn-labeled btn-danger" 
+                                    onclick="return confirm('Bạn muốn xóa  {{ $category->name }} ?!!!')">
+                                        <span class="btn-label"><i class="fa fa-trash"></i></span></button>
                                 </form>
+                                
+
                             </div>
                           
 
 
-                        </label>
+                        </label> --}}
+                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-info sm">
+                            <i class="fas fa-edit "></i>
+                        </a>
+
+                        {{-- @endcan --}}
+                        {{-- @can('Product delete') --}}
+                        <a data-href="{{ route('category.destroy', $category->id) }}" id="{{ $category->id }}"
+                            class="btn btn-danger sm deleteIcon"><i class=" fas fa-trash-alt "></i>
+                        </a>
+                        {{-- @endcan --}}
+                        {{-- @can('Product view') --}}
+                        <a href="{{ route('category.show', $category->id) }}"
+                            class="btn btn-primary waves-effect waves-light">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

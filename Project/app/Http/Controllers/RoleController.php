@@ -69,6 +69,7 @@ class RoleController extends Controller
     }
     public function edit($id)
     {
+        // dd(123);
         DB::beginTransaction();
         try {
         $permissions = $this->permission->where('group_key', 0)->get();
@@ -102,19 +103,27 @@ class RoleController extends Controller
     }
     public function destroy($id)
     {
-        DB::beginTransaction();
         try {
             $role = $this->role->findOrFail($id);
-            $role->deleted_at = date('Y-m-d H:i:s');
-            $role->save();
-            DB::commit();
-            Session::flash('messages', 'Đã chuyển vào thùng rác');
+            $role->delete();
+            Session::flash('success', 'Đã chuyển vào thùng rác');
             return redirect()->route('role.index');
         } catch (Exception $e) {
-            DB::rollBack();
-            Log::eror('messages' . $e->getMessage() . '---Line' . $e->getLine());
             abort(403);
+            Log::eror('messages' . $e->getMessage() . '---___Line' . $e->getLine());
         }
+    }
+    public function trashed (){
+        {
+            try {
+                $roles = Role::onlyTrashed()->get();
+                return view('admin.roles.recycle', compact('roles'));
+            } catch (Exception $e) {
+                Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+                abort(403);
+            }
+        }
+    
     }
     public function recycleBin()
     {

@@ -2,6 +2,9 @@
 @section('content')
     <div>
         <h3>Thêm mới Người dùng</h3>
+        @error('msg')
+        <h3 style="color: rgb(232, 13, 16); height:40px;" class="alter alert-primary text-center">{{ $message }}</h3>
+    @enderror
        
         <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -68,7 +71,7 @@
                     @endforeach
                 </select>
                 @if($errors->any())
-                <p style="color:red"> {{$errors->first('email')}}</p>
+                <p style="color:red"> {{$errors->first('role_id')}}</p>
              @endif
             </div>
 

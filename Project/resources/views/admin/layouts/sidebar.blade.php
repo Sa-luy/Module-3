@@ -37,7 +37,7 @@
         </div>
         <div class="dash-nav-dropdown">
             <a href="{{route('user.index')}}" class="dash-nav-item dash-nav-dropdown-toggle">
-                <i class="fas fa-file"></i> User</a>
+                <i class="fa-solid fa-users"></i>User</a>
             <div class="dash-nav-dropdown-menu">
                 <a href="blank.html" class="dash-nav-dropdown-item">Blank</a>
                 <a href="content.html" class="dash-nav-dropdown-item">Content</a>

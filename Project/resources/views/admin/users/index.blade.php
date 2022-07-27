@@ -30,16 +30,32 @@
                         <td> {{ $user->name }}</a></td>
                         <td> {{ $user->email }}</a></td>
                         <td>{{ $user->phone }}</a></td>
-                        <td> <a href="{{ route('user.show', $user->id) }}"><i class='bx bx-info-circle'></i></i></a>
+                        <td> 
+                            {{-- <a href="{{ route('user.show', $user->id) }}"><i class="fa-solid fa-eye"></i></i></a>
                             <a href="{{ route('user.edit', $user->id) }}"><i class='bx bxs-edit'></i></a>
                             <form action="{{ route('user.destroy', $user->id) }}" method="POST">
                                 @csrf
                                 @method('delete')
                                 {{-- <input type="submit" value="DElete"> --}}
-                                <button type="subit" class="btn btn-labeled btn-danger" 
+                                {{-- <button type="subit" class="btn btn-labeled btn-danger" 
                                 onclick="return confirm('Bạn muốn xóa  {{ $user->name }} ?!!!')">
                                     <span class="btn-label"><i class="fa fa-trash"></i></span></button>
-                            </form>
+                            </form> --}}
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info sm">
+                                <i class="fas fa-edit "></i>
+                            </a>
+
+                            {{-- @endcan --}}
+                            {{-- @can('Product delete') --}}
+                            <a data-href="{{ route('user.destroy', $user->id) }}" id="{{ $user->id }}"
+                                class="btn btn-danger sm deleteIcon"><i class=" fas fa-trash-alt "></i>
+                            </a>
+                            {{-- @endcan --}}
+                            {{-- @can('Product view') --}}
+                            <a href="{{ route('user.show', $user->id) }}"
+                                class="btn btn-primary waves-effect waves-light">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

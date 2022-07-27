@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\Roles;
 use App\Models\User;
@@ -27,6 +29,7 @@ class UserController extends Controller
     }
     public function index()
     {
+        $this->authorize('viewAny',User::class);
         $users = $this->user->latest()->paginate(5);
         return view('admin.users.index', compact('users'));
     }
@@ -42,15 +45,15 @@ class UserController extends Controller
         $params=['roles'=>$roles];
         return view('admin.users.add',$params);
     }
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'max:255'],
-            'phone' => ['required', 'max:255'],
-            'address' => ['required', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'min:8',],
-        ]);
+        // $request->validate([
+        //     'name' => ['required', 'max:255'],
+        //     'phone' => ['required', 'max:255'],
+        //     'address' => ['required', 'max:255'],
+        //     'email' => ['required', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'min:8',],
+        // ]);
         try {
             DB::beginTransaction();
             $user = new User();
@@ -97,7 +100,7 @@ class UserController extends Controller
         return view('admin.users.edit', $params);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
             $user = $this->user->findOrFail($id);
         

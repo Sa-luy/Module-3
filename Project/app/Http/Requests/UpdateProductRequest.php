@@ -66,7 +66,7 @@ class UpdateProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             if ($validator->errors()->count() > 0) {
-                $validator->errors()->add('msg', 'Lỗi của chúng tôi vui lòng thử lại!');
+                $validator->errors()->add('msg', 'Lỗi !!! vui lòng thử lại!');
             }
         });
     }

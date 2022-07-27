@@ -67,13 +67,29 @@
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->display_name }}
                                         <td>
-                                            <a href="{{ route('role.edit', $role->id) }}" class="btn btn-info">Edit </a>
+                                            {{-- <a href="{{ route('role.edit', $role->id) }}" class="btn btn-info">Edit </a> --}}
                                             <form action="{{ route('role.destroy', $role->id) }}" method="POST">
                                                 @csrf
-                                                @method('PUT')
+                                                @method('delete')
                                                 <button class="btn btn-danger align-middle" type="submit"
-                                                    onclick="execute_example()">Xóa</button>
-                                            </form>
+                                                    onclick="execute_example()"><i class="fa-solid fa-trash-can-clock"></i></button>
+                                            </form> 
+                                            <a href="{{ route('role.edit', $role->id) }}" class="btn btn-info sm">
+                                                <i class="fas fa-edit "></i>
+                                            </a>
+                
+                                            {{-- @endcan --}}
+                                            {{-- @can('role delete') --}}
+                                            <a data-href="{{ route('role.destroy', $role->id) }}" 
+                                                class="btn btn-danger sm deleteIcon"><i class=" fas fa-trash-alt "></i>
+                                            </a>
+                                            {{-- @endcan --}}
+                                            {{-- @can('role view') --}}
+                                            <a href="{{ route('role.show', $role->id) }}"
+                                                class="btn btn-primary waves-effect waves-light">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            {{-- @endcan --}}
                                     </tr>
                                 @endforeach
                             </tbody>

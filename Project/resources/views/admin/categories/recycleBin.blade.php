@@ -33,14 +33,17 @@
                     <td>
                         <form action="{{ route('admin.category.restore', $category__trashed->id) }}" method="POST">
                             @csrf
-                            <button class="btn btn-danger align-middle" type="submit"
-                                onclick="return confirm('Bạn muốn khôi phục {{ $category__trashed->name }} ?')">Restore</button>
+                            <button class="btn btn-success align-middle" type="submit"
+                                onclick="return confirm('Bạn muốn khôi phục {{ $category__trashed->name }} ?')">
+                                <i class='bx bxs-trash'></i>
+                            </button>
                         </form>
                         <form action="{{ route('category-force-delete', $category__trashed->id) }}" method="POST">
                             @csrf
                             <button class="btn btn-danger align-middle" type="submit"
-                                onclick="return confirm('Bạn muốn xóa vĩnh viễn  {{ $category__trashed->name }} ?')">Force
-                                Delete</button>
+                                onclick="return confirm('Bạn muốn xóa vĩnh viễn  {{ $category__trashed->name }} ?')">
+                                <i class='bx bxs-trash'></i>
+                            </button>
                         </form>
                     </td>
 

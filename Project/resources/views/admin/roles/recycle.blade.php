@@ -1,16 +1,13 @@
-@extends('admin.layouts.master')
+@extends('admin.main');
 @section('content')
     <div class="container">
         <div class="table-agile-info">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Liệt kê role
+                    thung rac 
                 </div>
                 <div class="row w3-res-tb">
-                    <div class="col-sm-5 m-b-xs">
-                        <input type="text" class="input-sm form-control w-sm inline v-middle">
-                        <button class="btn btn-sm btn-default" type="submit">Search</button>
-                    </div>
+                   
                     <div class="col-sm-4">
                     </div>
                     <div class="col-sm-3">
@@ -25,9 +22,7 @@
                                 <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('messages') }}
                             </p>
                         @endif
-                        <div class="col-sm-4">
-                            <a href="{{ route('users.create') }}" class="btn btn-info">Add</a>
-                        </div>
+                      
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -49,7 +44,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (!empty($roles))
+                            {{-- @if (!empty($roles)) --}}
                                 @foreach ($roles as $key => $role)
                                     @csrf
                                     <tr>
@@ -59,6 +54,7 @@
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->display_name }} </td>
                                         <td>
+                                            <p>ygufyutgfbvghcf</p>
                                             <form action="{{ route('roles.rehibilitate', $role->id) }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-danger align-middle" type="submit"
@@ -67,13 +63,13 @@
                                         </td>  
                                     </tr>
                                 @endforeach
-                            @else
+                            {{-- @else --}}
                                 <tr>
                                     <td colspan="5">
                                         <p>Thùng Rác Rỗng</p>
                                     </td>
                                 </tr>
-                            @endif
+                            {{-- @endif --}}
                         </tbody>
                     </table>
                 </div>
