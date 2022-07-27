@@ -3481,3 +3481,11 @@ a.btn.btn-primary.align-middle {
 a.btn.btn-danger.align-middle.delete {
     background: #045df7;
 }
+.form-switch .form-check-input {
+    margin-left: 2.5em; 
+}
+.form-check {
+    position: relative;
+    display: block;
+    padding-left: 3.25rem;
+}

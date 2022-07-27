@@ -4,7 +4,8 @@
     <br>
     <h2>Danh Sách Sản Phẩm</h2>
     <div class="row">
-        @can('create', App\Models\Product::class)
+
+        @can('create', \App\Models\Product::class)
             <div class="col">
                 <a href="{{ route('product.create') }}" class="btn btn-primary ">THÊM</a>
             </div>
@@ -57,48 +58,26 @@
                         <td>
                             <img src="{{ asset('storage/images/' . $product->image) }}" alt="" style="width: 100px">
                         </td>
-                        {{-- <td class="word_break">{{ $product->description }}</td> --}}
-                        {{-- <td>{{ $product->use }}</td> --}}
-                        {{-- <td>{{ $product->status }}</td> --}}
                         <td>
-                            {{-- <div class="row"> --}}
-                            {{-- <div class="btn btn-primary waves-effect waves-light"><a href="{{ route('product.show', $product->id) }}"
-                                        class=""><i class="fa-solid fa-eye"></i></a>
-                                    {{-- </div> --}}
-                            {{-- <div class="btn btn-info sm"> --}}
-                            {{-- <a href=""{{ route('product.edit', $product->id) }}" class="btn btn-info sm
-                                        class=">Sửa</a> --}}
-                            {{-- </div> --}}
-                            {{-- <div class="btn btn-danger sm"> --}}
-                            {{-- <form action="{{ route('product.destroy', $product->id) }}" method="POST">
-                                        @csrf --}}
-                            {{-- @method('delete') --}}
-                            {{-- <input type="submit" value="DElete"> --}}
-                            {{-- <button type="subit" class="" 
-                                        onclick="return confirm('Bạn muốn xóa  {{ $product->name }} ?!!!')" class="btn btn-danger sm">
-                                           <i class="fa fa-trash"></i></button> --}}
-                            {{-- </form> --}}
-                            {{-- </div> --}}
+                            @can('update,', \App\Models\Product::class)
+                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-info sm">
+                                    <i class="fas fa-edit "></i>
+                                </a>
+                            @endcan
 
+                            @can('delete', \App\Models\Product::class)
+                                <a data-href="{{ route('product.destroy', $product->id) }}" id="{{ $product->id }}"
+                                    class="btn btn-danger sm deleteIcon"><i class=" fas fa-trash-alt "></i>
+                                </a>
+                            @endcan
 
-                            {{-- </div> --}}
-                            {{-- @can('Product update') --}}
-                            <a href="{{ route('product.edit', $product->id) }}" class="btn btn-info sm">
-                                <i class="fas fa-edit "></i>
-                            </a>
+                            @can('view', \App\Models\Product::class)
+                                <a href="{{ route('product.show', $product->id) }}"
+                                    class="btn btn-primary waves-effect waves-light">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                            @endcan
 
-                            {{-- @endcan --}}
-                            {{-- @can('Product delete') --}}
-                            <a data-href="{{ route('product.destroy', $product->id) }}" id="{{ $product->id }}"
-                                class="btn btn-danger sm deleteIcon"><i class=" fas fa-trash-alt "></i>
-                            </a>
-                            {{-- @endcan --}}
-                            {{-- @can('Product view') --}}
-                            <a href="{{ route('product.show', $product->id) }}"
-                                class="btn btn-primary waves-effect waves-light">
-                                <i class="fa-solid fa-eye"></i>
-                            </a>
-                            {{-- @endcan --}}
                         </td>
                     </tr>
                 @endforeach
@@ -106,5 +85,17 @@
     </thead>
     </table>
     {{ $products->links() }}
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-5 text-center">
+                <small class="text-muted inline m-t-sm m-b-sm">showing 1-5 of {{$sum_product}} items</small>
+            </div>
+            <div class="col-sm-7 text-right text-center-xs">
+                <ul class="pagination pagination-sm m-t-none m-b-none">
+
+                </ul>
+            </div>
+        </div>
+    </footer>
 
 @endsection

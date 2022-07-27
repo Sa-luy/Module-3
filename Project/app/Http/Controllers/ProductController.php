@@ -30,7 +30,12 @@ class ProductController extends Controller
         $this->authorize('viewAny', Product::class);
        
         $products = Product::latest()->paginate(5);
-        return view('admin.products.index', compact('products'));
+        $sum_product=count( Product::all());
+        $param=[
+            'products' =>$products,
+            'sum_product' =>$sum_product
+        ];
+        return view('admin.products.index', $param);
     }
 
     /**
@@ -221,12 +226,6 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
             $product = Product::withTrashed()->find($id);
-            // $product_categories=$category->products;
-            // foreach ($product_categories as $key => $product_category) {
-            // $product_category->category_id= null;
-            // $product_category->save();
-            // dd($product_category);
-            // }
             $product->forceDelete();
             DB::commit();
             Session::flash('success', 'Xóa danh mục vĩnh viễn thành công');

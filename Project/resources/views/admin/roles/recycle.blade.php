@@ -14,12 +14,12 @@
                         <div class="input-group">
                             {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
                             <span class="input-group-btn">
-                                <a href="" class="btn btn-sm btn-default">Thùng Rác</a>
+                                <a href="" class="btn btn-sm btn-default">Trash</a>
                             </span>
                         </div>
-                        @if (Session::has('messages'))
+                        @if (Session::has('success'))
                             <p class="text-success">
-                                <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('messages') }}
+                                <i class="fa fa-check" aria-hidden="true"></i>{{ Session::get('success') }}
                             </p>
                         @endif
                       
@@ -54,19 +54,24 @@
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->display_name }} </td>
                                         <td>
-                                            <p>ygufyutgfbvghcf</p>
-                                            <form action="{{ route('roles.rehibilitate', $role->id) }}" method="POST">
+                                            <form action="{{ route('admin.role.restore', $role->id) }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-danger align-middle" type="submit"
                                                     onclick="return confirm('Bạn muốn Phục hồi {{ $role->name }} ?')">Restore</button>
                                             </form>  
+                                            <form action="{{ route('role-force-delete', $role->id) }}" method="POST">
+                                                @csrf
+                                                <button class="btn btn-danger align-middle" type="submit"
+                                                    onclick="return confirm('Bạn muốn xóa vĩnh viễn  {{ $role->name }} ?')">Force
+                                                    Delete</button>
+                                            </form> 
                                         </td>  
                                     </tr>
                                 @endforeach
                             {{-- @else --}}
                                 <tr>
                                     <td colspan="5">
-                                        <p>Thùng Rác Rỗng</p>
+                                        <p>Empty</p>
                                     </td>
                                 </tr>
                             {{-- @endif --}}

@@ -59,7 +59,7 @@ class RoleController extends Controller
             $role->permissions()->attach($request->permission_ids);
 
             DB::commit();
-            Session::flash('messages', 'Đã thêm vai trò');
+            Session::flash('success', 'Đã thêm vai trò');
             return redirect()->route('role.index');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -93,7 +93,7 @@ class RoleController extends Controller
             $role->save();
             $role->permissions()->sync($request->permission_ids);
             DB::commit();
-            Session::flash('messages', 'Đã cập nhật vai trò');
+            Session::flash('success', 'Đã cập nhật vai trò');
             return redirect()->route('role.index');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -101,16 +101,27 @@ class RoleController extends Controller
             abort(403);
         }
     }
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
         try {
             $role = $this->role->findOrFail($id);
             $role->delete();
-            Session::flash('success', 'Đã chuyển vào thùng rác');
-            return redirect()->route('role.index');
+            // Session::flash('success', 'Đã chuyển vào thùng rác');
+            $status=200;
+            $messages='Deleted ,'.$role->name;
+            return response()->json([
+                'messages' =>$messages,
+                'status' => 1
+            ],$status);
         } catch (Exception $e) {
-            abort(403);
+            $messages='Errors Deleted!!!!! ,'.$role->name;
+            $status=403;
             Log::eror('messages' . $e->getMessage() . '---___Line' . $e->getLine());
+            return response()->json([
+                'messages' =>$messages,
+                'status' => 0
+            ],$status);
         }
     }
     public function trashed (){
@@ -125,29 +136,33 @@ class RoleController extends Controller
         }
     
     }
-    public function recycleBin()
+    public function restore($id)
     {
         try {
-            $roles = $this->role->where('deleted_at', '!=', null)->paginate(10);
-            return view('admin.roles.recycle', compact('roles'));
-        } catch (Exception $e) {
-            Log::eror('messages' . $e->getMessage() . '---Line' . $e->getLine());
-            abort(403);
-        }
-    }
-    public function rehibilitate($id)
-    {
-        
-        try {
-            $role = $this->role->findOrFail($id);
-            
-            $role->deleted_at = null;
-            $role->save();
-            Session::flash('messages', 'Phục Hồi thành công');
+            $role = $this->role->withTrashed()->where('id', $id)->restore();;
+
+            Session::flash('success', 'Phục Hồi thành công');
             return redirect()->route('role.index');
         } catch (Exception $e) {
             abort(403);
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
         }
     }
+    // public function forceDelete($id){
+    //     try {
+    //         DB::beginTransaction();
+    //         $role = Role::withTrashed()->find($id);
+    //         dd($role->permissions);
+    //         $role->forceDelete();
+    //         DB::commit();
+    //         Session::flash('success', 'Xóa danh mục vĩnh viễn thành công');
+    //         return redirect()->route('role-trashed');
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         Session::flash('success', 'Xóa danh mục vĩnh viễn lỗi!!! Hãy thử lại');
+    //         Log::error('messages' . $e->getMessage() . 'line________' . $e->getLine());
+    //         return redirect()->route('role-trashed');
+    //     }
+    // }
+ 
 }

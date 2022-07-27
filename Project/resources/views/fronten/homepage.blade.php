@@ -1,12 +1,10 @@
 @extends('fronten.layouts.main')
 @section('content')
-
-
     {{-- <section class="categories">
         <div class="container">
             <div class="row"> --}}
 
-                {{-- <div class="categories__slider owl-carousel">
+    {{-- <div class="categories__slider owl-carousel">
                     @foreach ($products as $product)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                         <div class="featured__item">
@@ -28,8 +26,8 @@
                     </div>
                     
             </div> --}}
-            
-        {{-- </div>
+
+    {{-- </div>
     </section> --}}
 
 
@@ -55,143 +53,29 @@
             </div>
             <div class="row featured__filter">
                 @foreach ($products as $product)
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('storage/images/' . $product->image) }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="bx bx-heart"></i></a></li>
-                                <li><a href="#"><i class='bx bx-message-rounded-edit'></i></a></li>
-                                <li><a href="#"
-                                    data-url="{{route('addToCart',$product->id)}}"
-                                    class="addCart"><i class='bx bx-cart-alt'></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">{{$product->name }}</a></h6>
-                            <h5>{{number_format($product->price)}}</h5>
-                            <h6>{{$product->description }}</h6>
+                    <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                        <div class="featured__item">
+                            <div class="featured__item__pic set-bg"
+                                data-setbg="{{ asset('storage/images/' . $product->image) }}">
+                                <ul class="featured__item__pic__hover">
+                                    <li><a href="#"><i class="bx bx-heart"></i></a></li>
+                                    <li><a href="#"><i class='bx bx-message-rounded-edit'></i></a></li>
+                                    <li><a href="#" data-url="{{ route('addToCart', $product->id) }}"
+                                            class="addCart"><i class='bx bx-cart-alt'></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="featured__item__text">
+                                <h6><a href="#">{{ $product->name }}</a></h6>
+                                <h5>{{ number_format($product->price) }}</h5>
+                                <h6>{{ $product->description }}</h6>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
-                {{-- <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('home/img/featured/feature-2.jpg') }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('home/img/featured/feature-3.jpg') }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('home/img/featured/feature-4.jpg') }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('home/img/featured/feature-5.jpg') }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('home/img/featured/feature-6.jpg') }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('home/img/featured/feature-7.jpg') }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg"
-                            data-setbg="{{ asset('home/img/featured/feature-8.jpg') }}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </section>
     <!-- Featured Section End -->
-
     <!-- Banner Begin -->
     <div class="banner">
         <div class="container">
@@ -210,7 +94,6 @@
         </div>
     </div>
     <!-- Banner End -->
-
     <!-- Latest Product Section Begin -->
     <section class="latest-product spad">
         <div class="container">
@@ -414,7 +297,6 @@
         </div>
     </section>
     <!-- Latest Product Section End -->
-
     <!-- Blog Section Begin -->
     <section class="from-blog spad">
         <div class="container">
@@ -477,14 +359,14 @@
 @endsection
 {{-- san pham mới --}}
 @section('hot_product')
-<div class="hero__item set-bg" data-setbg="{{asset('images/background.PNG')}}" >
-    <div class="hero__text">
-        {{-- <span>FRUIT FRESH</span>
+    <div class="hero__item set-bg" data-setbg="{{ asset('images/background.PNG') }}">
+        <div class="hero__text">
+            {{-- <span>FRUIT FRESH</span>
         <h2>Vegetable <br />100% tự nhiên</h2>
         <p>nói không với hóa chất</p> --}}
-        <a href="#" class="primary-btn">Mua ngay</a>
+            <a href="#" class="primary-btn">Mua ngay</a>
+        </div>
     </div>
-</div>
 @endsection
 
 
@@ -506,22 +388,23 @@
 </script>
 <script>
     $(function() {
-       $('.addCart').on('click', addToCart)
+        $('.addCart').on('click', addToCart)
     })
-    function addToCart(event){
+
+    function addToCart(event) {
         event.preventDefault();
-        let url= $(this).data('url');
-        
+        let url = $(this).data('url');
+
         $.ajax({
             type: "GET",
             url: url,
             dataType: 'json',
-            success: function(data){
-                console.log (data)
+            success: function(data) {
+                console.log(data)
             },
-            error: function(data){}
-            
-    });
+            error: function(data) {}
+
+        });
     }
 </script>
 

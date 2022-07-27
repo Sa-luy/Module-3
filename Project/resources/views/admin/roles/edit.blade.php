@@ -1,13 +1,7 @@
 @extends('admin.main');
 @section('content')
     <style>
-        .card-header {
-            background-color: chartreuse
-        }
-
-        .card-body {
-            color: blue;
-        }
+       
     </style>
     <div class="container">
         <div class="table-agile-info">
@@ -28,7 +22,7 @@
                     <div class="col-sm-3">
                         <div class="input-group">
                             {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
-                            <img src="{{ asset('images/hinh-anh-dong-hoat-hinh.gif') }}" alt="" width="100px">
+                            <img src="{{ asset('img/1657963066.gif') }}" alt="" width="100px">
                         </div>
 
 
@@ -41,10 +35,10 @@
                     <form action="{{ route('role.update', $role->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <p>Định danh Vai trò :</p>
-                        <input type="text" name="name" class="input-sm form-control" value="{{ $role->name }}">
-                        <p>Mô Tả Vai trò:</p>
-                        <textarea name="display_name" id="" cols="100" rows="5" class="input-sm form-control"
+                        <label >Tên Vai trò :</label>
+                        <input type="text" name="name" class="input-sm form-control"value="{{$role->name }}">
+                        <label>Mô Tả Vai trò:</label>
+                        <textarea name="display_name" id="" cols="100" rows="2" class="input-sm form-control"
                             value="{{ $role->display_name }}">{{ $role->display_name }}</textarea>
 
                         {{-- carrd --}}
@@ -55,15 +49,16 @@
                                     Check All</label>
                             </div>
                             @foreach ($permissions as $permission)
-                                <div class="container">
+                                <div class="row">
                                     <div class="card border-primary mb-3">
                                         <div class="card-header">
                                             <div class="row">
                                                 <div class="col-12 form-check form-switch">
-                                                    <input class="form-check-input checkbox_wrapper" type="checkbox"
-                                                        role="switch">
-
-                                                    {{ $permission->name }}
+                                                    <span class="">
+                                                        <input class="form-check-input checkbox_wrapper" type="checkbox"
+                                                            role="switch">
+                                                    </span>
+                                                    <span class="">{{ $permission->name }}</span>
                                                 </div>
 
                                             </div>
@@ -72,11 +67,15 @@
                                             <div class="row">
                                                 @foreach ($permission->permissionChild as $permissionChildItem)
                                                     <div class="col form-check form-switch ">
-                                                        <input class="form-check-input checkbox_child"
-                                                            name="permission_ids[]" type="checkbox" role="switch"
-                                                            {{ $permissionsChecked->contains('id', $permissionChildItem->id) ? 'checked' : '' }}
-                                                            value="{{ $permissionChildItem->id }}">
-                                                        {{ $permissionChildItem->name }}
+                                                        <span class="name_role">
+                                                            <input class="form-check-input checkbox_child"
+                                                                name="permission_ids[]" type="checkbox" role="switch"
+                                                                {{ $permissionsChecked->contains('id', $permissionChildItem->id) ? 'checked' : '' }}
+                                                                value="{{ $permissionChildItem->id }}">
+                                                        </span>
+                                                        <span class="role">
+                                                            {{ $permissionChildItem->name }}
+                                                        </span>
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -94,7 +93,6 @@
         </div>
 
     </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
@@ -106,5 +104,5 @@
             $(this).parents().find('.checkbox_wrapper').prop('checked', $(this).prop('checked'));
         });
     </script>
-    </div>
+    
 @endsection

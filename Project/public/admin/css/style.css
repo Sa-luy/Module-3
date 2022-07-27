@@ -1,0 +1,21 @@
+.form-switch .form-check-input {
+    margin-left: 2.5em; 
+}
+.form-check {
+    position: relative;
+    display: block;
+    padding-left: 3.25rem;
+}
+span.name_role {
+    margin-right: -54px;
+}
+.card-header {
+    background-color: #bae193;
+}
+
+.card-body {
+    color: blue;
+}
+span{
+    color: rgb(10, 7, 7);
+}
