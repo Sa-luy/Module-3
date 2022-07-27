@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="{{asset('fronten/css/style.css')}}">
 
 	</head>
-	<body class="img js-fullheight" style="background-image: url({{asset('fronten/images/bg.jpg')}});">
+	<body class="img js-fullheight" style="background-image: url({{asset('img/background.jpg')}});">
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">

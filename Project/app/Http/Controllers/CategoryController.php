@@ -22,7 +22,12 @@ class CategoryController extends Controller
     {
         $this->authorize('viewAny', Category::class);
         $categories = Category::latest()->paginate(5);
-        return view('admin.categories.index',compact('categories'));
+        $sum_category=count( Category::all());
+        $param=[
+            'categories' =>$categories,
+            'sum_category'=> $sum_category
+        ];
+        return view('admin.categories.index',$param);
     }
 
     /**

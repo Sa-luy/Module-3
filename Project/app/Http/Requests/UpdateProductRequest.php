@@ -36,32 +36,32 @@ class UpdateProductRequest extends FormRequest
 
         ];
     }
-    public function messages()
-    {
-        return [
-            'name.required' => ' :attribute không đượv để trống!!!!',
-            'price.required' => ' :attribute  không được để trống',
-            'amouth.required' => ':attribute  không được để trống',
-            'use.required' => ':attribute không được để trống',
-            'status.required' => ':attribute  không được để trống',
-            'description.required' => ':attribute hông được để trống',
-            'category_id.required' => ':attribute không được để trống',
-            'file.required' => ':attribute không được để trống',
-            // 'file.image' =>'Chỉ ssuwr dụng tệp hình ảnh',
-        ];
-    }
-    public function attributes()
-    {
-        return [
-            'name' => 'Tên Sản phẩm',
-            'price' => 'Giá Sản phẩm',
-            'amouth' => 'Số Lượng Sản phẩm',
-            'use' => 'Cách dùng',
-            'status' => 'Phụ lục',
-            'category_id' => 'Danh Mục Sản phẩm',
-            // 'file' => 'Hình ảnh Sản phẩm',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'name.required' => ' :attribute không đượv để trống!!!!',
+    //         'price.required' => ' :attribute  không được để trống',
+    //         'amouth.required' => ':attribute  không được để trống',
+    //         'use.required' => ':attribute không được để trống',
+    //         'status.required' => ':attribute  không được để trống',
+    //         'description.required' => ':attribute hông được để trống',
+    //         'category_id.required' => ':attribute không được để trống',
+    //         'file.required' => ':attribute không được để trống',
+    //         // 'file.image' =>'Chỉ ssuwr dụng tệp hình ảnh',
+    //     ];
+    // }
+    // public function attributes()
+    // {
+    //     return [
+    //         'name' => 'Tên Sản phẩm',
+    //         'price' => 'Giá Sản phẩm',
+    //         'amouth' => 'Số Lượng Sản phẩm',
+    //         'use' => 'Cách dùng',
+    //         'status' => 'Phụ lục',
+    //         'category_id' => 'Danh Mục Sản phẩm',
+    //         // 'file' => 'Hình ảnh Sản phẩm',
+    //     ];
+    // }
     protected function withValidator($validator)
     {
         $validator->after(function ($validator) {

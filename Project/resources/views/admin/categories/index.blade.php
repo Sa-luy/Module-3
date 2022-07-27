@@ -91,6 +91,18 @@
 
     </table>
     {{ $categories->links() }}
+    <footer class="panel-footer">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <small class="text-muted inline m-t-sm m-b-sm">{{__('lang.showing-1-5-of').$sum_category .__('lang.items-category')}}</small>
+            </div>
+            <div class="col-sm-7 text-right text-center-xs">
+                <ul class="pagination pagination-sm m-t-none m-b-none">
+                </ul>
+            </div>
+        </div>
+    </footer>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 @endsection

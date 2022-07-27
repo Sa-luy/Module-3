@@ -103,14 +103,7 @@
             </div>
         </div>
         <script>
-            // jQuery(document).ready(function() {
-            //     jQuery('.deleteIcon').click( function(){
-            //         let id= jQuery(this).data('id')
-            //         alert(id)
-            //     } )
-            //     Try me! 
-
-            // });
+      
             $(function() {
                 $('.deleteIcon').on('click', deleteRole)
             })

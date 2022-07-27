@@ -32,10 +32,12 @@ class AppServiceProvider extends ServiceProvider
         $user=Auth::user();
         $categories= Category::paginate(5);
         $products_home = Product::all();
+        $product_new=Product::latest()->first();
         View::share([
         'user'=> $user,
         'categories'=>$categories,
-        'products_home' =>$products_home
+        'products_home' =>$products_home,
+        'product_new' =>$product_new
     ]);
     }
 }

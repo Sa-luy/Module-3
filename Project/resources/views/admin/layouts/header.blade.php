@@ -18,6 +18,23 @@
             <i class="fas fa-bell"></i>
             <i class="tools-item-count">4</i>
         </a>
+        <div class="dash-nav-dropdown ">
+            <a href="#" class="dash-nav-dropdown-item dash-nav-dropdown-toggle">Eng lish</a>
+            <div class="dash-nav-dropdown-menu">
+                <a href="icons.html" class="dash-nav-dropdown-item">Vi</a>
+                <a href="icons.html#regular-icons" class="dash-nav-dropdown-item">China</a>
+                <a href="icons.html#brand-icons" class="dash-nav-dropdown-item">Korea</a>
+            </div>
+            <div class="header__top__right__language">
+                <img src="{{ asset('home/img/language.png') }}" alt="">
+                <div>English</div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
+                </ul>
+            </div> 
+        </div>
         <div class="dropdown tools-item">
             <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user"></i>

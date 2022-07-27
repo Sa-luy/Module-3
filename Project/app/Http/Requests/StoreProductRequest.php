@@ -32,7 +32,6 @@ class StoreProductRequest extends FormRequest
             'description' => 'required',
             'category_id' => 'required',
             'file' => 'required',
-            'role_id' => 'required',
 
 
         ];
@@ -67,6 +66,7 @@ class StoreProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             if ($validator->errors()->count() > 0) {
+                dd($validator->errors()->all());
                 $validator->errors()->add('msg', 'Lỗi !!! vui lòng thử lại!');
             }
         });

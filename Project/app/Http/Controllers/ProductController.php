@@ -178,20 +178,28 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        
         $this->authorize('delete', Product::class);
         try {
 
             DB::beginTransaction();
-            $product = Product::findOrFail($id);
+            $product = Product::findOrFail($id[]);
             $product->delete();
             DB::commit();
-            Session::flash('success', 'Xóa sản phẩm thành công');
+            $messages='Deleted successfully.';
+            return response()->json(['messages' =>$messages,
+            'status' => 1
+        ],200);
+        // die();
             return redirect()->back();
         } catch (\Exception $e) {
             DB::rollBack();
-            Session::flash('errors', 'Xóa danh mục vĩnh viễn lỗi!!! Hãy thử lại');
             Log::error('messages' . $e->getMessage() . 'line________' . $e->getLine());
-            return redirect()->route('category.index');
+            $messages='Deleted errors!!!please try again.';
+            return response()->json(['messages' =>$messages,
+            'status' => 0
+        ],200);
+            // return redirect()->route('category.index');
         }
     }
 
