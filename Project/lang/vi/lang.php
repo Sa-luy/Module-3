@@ -1,6 +1,6 @@
 <?php
 return[
-    'product-list'=>'Danh Sách Sản Phảm',
+    'product-list'=>'Danh Sách Sản Phẩm',
     'empty-list'=>'Danh Sách rỗng',
     'name-product'=>'Tên Sản Phẩm',
     'price' =>'Giá',
@@ -26,11 +26,11 @@ return[
     ''=>'',
     ''=>'',
     'routename'=>[
-        'dashboard' => ' Dashboard ',
-        'category' => ' Category ',
-        'product'=>'Product',
-        'user'=>'User',
-        'role'=>'Role',
+        'dashboard' => ' Trang Quản Lí ',
+        'category' => ' Danh Mục',
+        'product'=>'Sản phẩm',
+        'user'=>'Người Dùng',
+        'role'=>'Quyền Truy Cập',
         ''=>'',
         ''=>'',
         ''=>'',

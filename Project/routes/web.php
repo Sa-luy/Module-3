@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
@@ -37,6 +38,9 @@ Route::group(
   Route::get('update-to-cart', [CartController::class, 'updateToCart'])->name('updateToCart');
   Route::get('delete-to-cart', [CartController::class, 'deleteToCart'])->name('deleteToCart');
 });
+Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
+
+
 
 
 

@@ -93,12 +93,22 @@
         <div class="dash-nav-dropdown ">
             <div class="header__top__right__language">
                 <img  src="{{ asset('home/img/language.png') }}" alt="">
-                <div>English</div>
                 <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a  class="chane_lang" href="">Viet Nam</a></li>
-                    <li><a class="chane_lang" href="">English</a></li>
-                </ul>
+              
+                {{-- <li class="dropdown"> --}}
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{ Config::get('languages')[App::getLocale()] }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if ($lang != App::getLocale())
+                                <li>
+                                    <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                {{-- </li> --}}
             </div> 
         </div>
         <div class="dropdown tools-item">
