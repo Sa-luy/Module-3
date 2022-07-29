@@ -183,7 +183,7 @@ class ProductController extends Controller
         try {
 
             DB::beginTransaction();
-            $product = Product::findOrFail($id[]);
+            $product = Product::findOrFail($id);
             $product->delete();
             DB::commit();
             $messages='Deleted successfully.';

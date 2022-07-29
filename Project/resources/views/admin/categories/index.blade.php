@@ -4,7 +4,10 @@
         Danh mục Sản Phẩm</h1>
     <div class="row">
         <div class="col">
+            @can('create', \App\Models\Category::class)
+
             <a href="{{ route('category.create') }}" class="btn btn-primary ">THÊM</a>
+            @endcan
         </div>
         <div class="col">
             @if (Session::has('success'))
@@ -21,11 +24,12 @@
             @endif
         </div>
         <div class="col input-group">
-            {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
             <span class="input-group-btn">
+                @can('delete', \App\Models\Category::class)
                 <a href="{{ route('category-trashed') }}" class="btn btn-sm btn-danger">
                     <button type="subit" class="btn btn-labeled btn-danger">
                         <span class="btn-label"><i class="fa fa-trash"></i>Đã xóa</span></button></a>
+                        @endcan
             </span>
         </div>
     </div>
@@ -46,44 +50,25 @@
                     {{-- <td>12</td> --}}
                     <td class="text-center">{{ $category->products->count() }}</td>
                     <td>
-                        {{-- <label class="row">
-                              <div class="col"></div>
-                            <div class="col"></div>
-                            <div class="col"><a href="{{ route('category.show', $category->id) }}"
-                                    class="align-middle show"><i class="fa-solid fa-eye"></i></a></div>
-                            <div class="col"><a href="{{ route('category.edit', $category->id) }}"
-                                    class=" align-middle show"><i class="fa-solid fa-file-pen"></i></a></div>
-                            <div class="col">
-                                <form action="{{ route('category.destroy', $category->id) }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    {{-- <input type="submit" value="DElete"> --}}
-                                    {{-- <button type="subit" class="btn btn-labeled btn-danger" 
-                                    onclick="return confirm('Bạn muốn xóa  {{ $category->name }} ?!!!')">
-                                        <span class="btn-label"><i class="fa fa-trash"></i></span></button>
-                                </form>
-                                
+                        @can('update', \App\Models\Category::class)
 
-                            </div>
-                          
-
-
-                        </label> --}}
                         <a href="{{ route('category.edit', $category->id) }}" class="btn btn-info sm">
                             <i class="fas fa-edit "></i>
                         </a>
 
-                        {{-- @endcan --}}
-                        {{-- @can('Product delete') --}}
-                        <a data-href="{{ route('category.destroy', $category->id) }}" id="{{ $category->id }}"
-                            class="btn btn-danger sm deleteIcon"><i class=" fas fa-trash-alt "></i>
+                        @endcan
+                        @can('delete', \App\Models\Category::class)
+                        <a data-url="{{ route('category.destroy', $category->id) }}"data-id="{{ $category->id }}"
+                            class="btn btn-danger sm deleteCategory"><i class=" fas fa-trash-alt "></i>
                         </a>
-                        {{-- @endcan --}}
-                        {{-- @can('Product view') --}}
+                        @endcan
+                        @can('view', \App\Models\Category::class)
+                        
                         <a href="{{ route('category.show', $category->id) }}"
                             class="btn btn-primary waves-effect waves-light">
                             <i class="fa-solid fa-eye"></i>
                         </a>
+                        @endcan
                     </td>
                 </tr>
             @endforeach
@@ -104,5 +89,54 @@
     </footer>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      
+        $(function() {
+            $('.deleteCategory').on('click', deleteCategory)
+        })
+
+        function deleteCategory(event) {
+            event.preventDefault();
+            let url = $(this).data('url');
+            let id = $(this).data('id');
+            Swal.fire({
+                title: "Are you sure delete {{$category->name}}?",
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    jQuery.ajax({
+                        type: "delete",
+                        'url': url,
+                        'data': {
+                            id: id,
+                            _token: "{{ csrf_token() }}",
+                        },
+                        dataType: 'json',
+                        success: function(data, ) {
+                            if (data.status === 1) {
+                                console.log(data);
+                                window.location.reload();
+                                alert(data.messages)
+
+                            } 
+                            if (data.status === 0) {
+                                console.log(data);
+                                window.location.reload();
+                                alert(data.messages)
+
+                            } 
+                            }
+                    });
+
+                }
+
+            })
+        }
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 @endsection

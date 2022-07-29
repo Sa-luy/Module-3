@@ -54,7 +54,7 @@ Route::group(
   function () {
 
     //dashboard
-    Route::get('/dashboard',DashboradController::class)->name('dashboard');
+    // Route::get('/dashboard',DashboradController::class)->name('dashboard');
     //category
     Route::resource('category', CategoryController::class);
     Route::get('category-trashed', [CategoryController::class, 'trashed'])->name('category-trashed');
@@ -75,13 +75,17 @@ Route::group(
     Route::get('role-trashed', [RoleController::class, 'trashed'])->name('role-trashed');
     Route::post('role-trashed/{id}', [RoleController::class, 'restore'])->name('admin.role.restore');
     Route::post('role-forceDelete/{id}', [RoleController::class, 'forceDelete'])->name('role-force-delete');
-    Route::resource('orders', OrderController::class);
+    
     //permissions
     Route::prefix('/permissions')->group(function () {
       Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
       Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
-      //orders
-  });
+    });
+    //orders
+    Route::resource('order', OrderController::class);
+    Route::get('order-trashed', [OrderController::class, 'trashed'])->name('order-trashed');
+    // Route::post('user-trashed/{id}', [UserController::class, 'restore'])->name('admin.user.restore');
+    // Route::post('user-forceDelete/{id}', [UserController::class, 'forceDelete'])->name('user-force-delete');
 
 
 

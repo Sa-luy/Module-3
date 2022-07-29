@@ -35,25 +35,21 @@ class UserController extends Controller
     }
     public function show($id)
     {
+        $this->authorize('view',User::class);
         $user = $this->user->findOrFail($id);
         return view('admin.users.show', compact('user'));
     }
 
     public function create()
     {
+        $this->authorize('create',User::class);
         $roles = $this->role->all();
         $params=['roles'=>$roles];
         return view('admin.users.add',$params);
     }
     public function store(StoreUserRequest $request)
     {
-        // $request->validate([
-        //     'name' => ['required', 'max:255'],
-        //     'phone' => ['required', 'max:255'],
-        //     'address' => ['required', 'max:255'],
-        //     'email' => ['required', 'email', 'max:255', 'unique:users'],
-        //     'password' => ['required', 'min:8',],
-        // ]);
+        $this->authorize('create',User::class);
         try {
             DB::beginTransaction();
             $user = new User();
@@ -86,6 +82,7 @@ class UserController extends Controller
     }
     public function edit($id)
     {
+        $this->authorize('update',User::class);
         $roles = $this->role->all();
         $user = $this->user->findOrFail($id);
         foreach($user->roles as $role){
@@ -102,6 +99,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, $id)
     {
+        $this->authorize('update',User::class);
             $user = $this->user->findOrFail($id);
         
         try {
@@ -137,6 +135,7 @@ class UserController extends Controller
     public function trashed()
     {
         try {
+            $this->authorize('delete',User::class);
             $users = $this->user->onlyTrashed()->paginate(5);
             return view('admin.users.recycle', compact('users'));
         } catch (Exception $e) {
@@ -147,6 +146,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('delete',User::class);
         try {
             $user = $this->user->findOrFail($id);
             $user->delete();
@@ -164,6 +164,7 @@ class UserController extends Controller
     public function restore($id)
     {
         try {
+            $this->authorize('restore',User::class);
             $user = $this->user->withTrashed()->where('id', $id)->restore();;
 
             Session::flash('success', 'Phục Hồi thành công');
@@ -175,14 +176,13 @@ class UserController extends Controller
     }
     //focre delete
     public function delete(Request $request){
+        $this->authorize('forceDelete',User::class);
 
     $validated = $request->validate(
         [
             'ids' => 'required',
-        ],
-        [
-            'ids.required' => 'Bạn phải chọn ô',
-        ],
+        ]
+      ,
     );
        $id=$request->post;
        $this->user::whereIn('id', $id)->delete();

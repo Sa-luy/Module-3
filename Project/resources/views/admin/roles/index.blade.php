@@ -58,13 +58,7 @@
                                         <td>{{ $role->name }}</td>
                                         <td>{{ $role->display_name }}
                                         <td>
-                                            <form action="{{ route('role.destroy', $role->id) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button class="btn btn-danger align-middle" type="submit"
-                                                    onclick="execute_example()"><i
-                                                        class="fa-solid fa-trash-can-clock"></i></button>
-                                            </form>
+                                       
                                             <a href="{{ route('role.edit', $role->id) }}" class="btn btn-info sm">
                                                 <i class="fas fa-edit "></i>
                                             </a>

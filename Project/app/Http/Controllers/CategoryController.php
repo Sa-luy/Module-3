@@ -132,23 +132,30 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         $this->authorize('delete', Category::class);
-
-        $category = Category::findOrFail($id);
         try {
             DB::beginTransaction();
+            $id= $request->id;
+            $category = Category::findOrFail($id);
+            // return response()->json($category);
             $category->delete();
             DB::commit();
-            Session::flash('success', 'Xóa danh mục thành công');
-            return redirect()->route('category.index');
-        } catch (Exception $e) {
+            $messages='Deleted successfully.'.$category->name;
+            return response()->json([
+                'messages' =>$messages,
+                'status' => 1
+        ],200);
+       
+        } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Try again' . $e->getMessage() . '_____>line' . $e->getLine());
-            Session::flash('success', 'Xóa danh mục Lỗi!!! Hãy thử lại');
-
-            return redirect()->route('category.index');
+            Log::error('messages' . $e->getMessage() . 'line________' . $e->getLine());
+            $messages='Deleted errors!!!please try again.';
+            return response()->json(['messages' =>$messages,
+            'status' => 0
+        ],200);
+            // return redirect()->route('category.index');
         }
     }
     public function trashed()

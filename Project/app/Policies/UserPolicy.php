@@ -17,7 +17,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-    return  $user->hasPermission('role_viewAll');
+    return  $user->hasPermission('user_viewAll');
     }
 
     /**
@@ -27,9 +27,9 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
-        //
+        return  $user->hasPermission('user_view');
     }
 
     /**
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        //
+        return  $user->hasPermission('user_add');
     }
 
     /**
@@ -50,9 +50,10 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user)
     {
-        //
+        return  $user->hasPermission('user_edit');
+        
     }
 
     /**
@@ -62,9 +63,9 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user)
     {
-        //
+        return  $user->hasPermission('user_delete');
     }
 
     /**
@@ -74,11 +75,12 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user)
     {
-        //
+        return  $user->hasPermission('user_restore');
+        
     }
-
+    
     /**
      * Determine whether the user can permanently delete the model.
      *
@@ -86,8 +88,8 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user)
     {
-        //
+        return  $user->hasPermission('user_forceDelete');
     }
 }

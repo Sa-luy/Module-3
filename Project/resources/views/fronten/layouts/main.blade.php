@@ -104,7 +104,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('assets/img/logo-tmh.png') }}" alt=""></a>
+                        <a href="./index.html"><img src="{{ asset('img/logo-tmh.png') }}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">

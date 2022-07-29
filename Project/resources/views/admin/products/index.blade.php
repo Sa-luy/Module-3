@@ -2,7 +2,7 @@
 @section('content')
 
     <br>
-    <h2>{{__('lang.product-list')}}</h2>
+    <h2>{{ __('lang.product-list') }}</h2>
     <div class="row">
 
         @can('create', \App\Models\Product::class)
@@ -22,30 +22,26 @@
             <div class="input-group">
                 {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
                 <span class="input-group-btn">
-                    <h2> <a href="{{ route('product-trashed') }}" class="btn btn-sm "><button type="subit"
-                                class="">
+                    <h2> <a href="{{ route('product-trashed') }}" class="btn btn-sm "><button type="subit" class="">
                                 <span class="btn-label"><i class="fa fa-trash"></i></span></button></a></h2>
                 </span>
             </div>
         </div>
     </div>
     @if (count($products) == 0)
-        <p>{{__('lang.empty-list')}}</p>
+        <p>{{ __('lang.empty-list') }}</p>
     @else
         <table class="table table-striped">
             {{-- <table class="table table-striped table-hover align-middle"> --}}
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{__('lang.name-product')}}</th>
-                    <th>{{__('lang.price')}}</th>
-                    <th>{{__('lang.quantity')}}</th>
-                    <th>{{__('lang.category-name')}}</th>
-                    <th>{{__('lang.image-list')}}</th>
-                    {{-- <th>Chi Tiết Sản Phẩm</th> --}}
-                    {{-- <th>Cách dùng</th> --}}
-                    {{-- <th>Phụ Lục</th> --}}
-                    <th>{{__('lang.action')}}</th>
+                    <th>{{ __('lang.name-product') }}</th>
+                    <th>{{ __('lang.price') }}</th>
+                    <th>{{ __('lang.quantity') }}</th>
+                    <th>{{ __('lang.category-name') }}</th>
+                    <th>{{ __('lang.image-list') }}</th>
+                    <th>{{ __('lang.action') }}</th>
                 </tr>
 
                 @foreach ($products as $product)
@@ -56,7 +52,8 @@
                         <td>{{ $product->amouth }}</td>
                         <td>{{ $product->category->name ?? 'chưa nhập danh mục' }}</td>
                         <td>
-                            <img src="{{ asset('storage/images/' . $product->image) }}" alt="" style="width: 100px">
+                            <img src="{{ asset('storage/images/' . $product->image) }}" alt=""
+                                style="width: 100px">
                         </td>
                         <td>
                             @can('update', \App\Models\Product::class)
@@ -72,8 +69,7 @@
                             @endcan
 
                             @can('view', \App\Models\Product::class)
-                                <a href="{{ route('product.show', $product->id) }}"
-                                    class="waves-effect waves-light">
+                                <a href="{{ route('product.show', $product->id) }}" class="waves-effect waves-light">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
                             @endcan
@@ -81,14 +77,15 @@
                         </td>
                     </tr>
                 @endforeach
-    @endif
-    </thead>
-    </table>
+            </thead>
+        </table>
+        @endif
     {{ $products->links() }}
     <footer class="panel-footer">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <small class="text-muted inline m-t-sm m-b-sm">{{__('lang.showing-1-5-of ').$sum_product .__(' lang.items-product')}}</small>
+                <small
+                    class="text-muted inline m-t-sm m-b-sm">{{ __('lang.showing-1-5-of ') . $sum_product . __(' lang.items-product') }}</small>
             </div>
             <div class="col-sm-7 text-right text-center-xs">
                 <ul class="pagination pagination-sm m-t-none m-b-none">
@@ -98,7 +95,6 @@
         </div>
     </footer>
     <script>
-      
         $(function() {
             $('.deleteProduct').on('click', deleteProduct)
         })
@@ -108,7 +104,7 @@
             let url = $(this).data('url');
             let id = $(this).data('id');
             Swal.fire({
-                title: "Are you sure delete {{$product->name}}?",
+                title: "Are you sure delete {{ $product->name }}?",
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -128,17 +124,17 @@
                         success: function(data, ) {
                             if (data.status === 1) {
                                 console.log(data);
-                                // window.location.reload();
+                                window.location.reload();
                                 alert(data.messages)
 
-                            } 
+                            }
                             if (data.status === 0) {
                                 console.log(data);
                                 // window.location.reload();
                                 alert(data.messages)
 
-                            } 
                             }
+                        }
                     });
 
                 }
