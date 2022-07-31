@@ -1,38 +1,6 @@
 @extends('fronten.layouts.main')
 @section('content')
-    {{-- <section class="categories">
-        <div class="container">
-            <div class="row"> --}}
-
-    {{-- <div class="categories__slider owl-carousel">
-                    @foreach ($products as $product)
-                    <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-                        <div class="featured__item">
-                            <div class="categories__item set-bg"
-                                data-setbg="{{ asset('storage/images/' . $product->image) }}">
-                                <ul class="featured__item__pic__hover">
-                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                                <div >
-                                    
-                                    <h5 class="parent" style="width: 200px;"><a href="{{route('guest.product_show',$product->id) }}">{{ $product->name }}</a></h5>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    @endforeach
-                    </div>
-                    
-            </div> --}}
-
-    {{-- </div>
-    </section> --}}
-
-
-
-    <!-- Featured Section Begin -->
+  
     <section class="featured spad">
         <div class="container">
             <div class="row">
@@ -55,14 +23,15 @@
                 @foreach ($products_home as $product)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg"
+                            {{-- <div class="featured__item__pic set-bg"
                                 data-setbg="{{ asset('storage/images/' . $product->image) }}">
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#"><i class="bx bx-heart"></i></a></li>
                                     <li><a href="#"><i class='bx bx-message-rounded-edit'></i></a></li>
                                     <li><a href="#" data-url="{{ route('addToCart', $product->id) }}"
                                             class="addCart"><i class='bx bx-cart-alt'></i></a></li>
-                                </ul>
+                                </ul> --}}
+                                @include('fronten.custom.cart')
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">{{ $product->name }}</a></h6>

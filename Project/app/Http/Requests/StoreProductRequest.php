@@ -66,8 +66,7 @@ class StoreProductRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             if ($validator->errors()->count() > 0) {
-                dd($validator->errors()->all());
-                $validator->errors()->add('msg', 'Lỗi !!! vui lòng thử lại!');
+                $validator->errors()->add('msg', 'Failed!!!Please try again');
             }
         });
     }
