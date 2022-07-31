@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Tymon\JWTAuth\Claims\Custom;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,29 +26,51 @@ use Illuminate\Support\Facades\Route;
 */
 
 //home
-Route::get('/',[HomeController::class,'home'] )->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::group(
   [
-      'prefix' => 'guest',
+    'prefix' => 'guest',
   ],
   function () {
-  Route::get('product_show/{id}', [HomeController::class, 'showProduct'])->name('guest.product_show');
-  Route::get('category_show/{id}', [HomeController::class, 'showCategory'])->name('guest.category_show');
-  // cart
-  Route::get('show-cart', [CartController::class, 'showCart'])->name('showCart');
-  Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
-  Route::get('update-to-cart', [CartController::class, 'updateToCart'])->name('updateToCart');
-  Route::get('delete-to-cart', [CartController::class, 'deleteToCart'])->name('deleteToCart');
-});
+    Route::get('product_show/{id}', [HomeController::class, 'showProduct'])->name('guest.product_show');
+    Route::get('category_show/{id}', [HomeController::class, 'showCategory'])->name('guest.category_show');
+    // cart
+    Route::get('show-cart', [CartController::class, 'showCart'])->name('showCart');
+    Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('update-to-cart', [CartController::class, 'updateToCart'])->name('updateToCart');
+    Route::get('delete-to-cart', [CartController::class, 'deleteToCart'])->name('deleteToCart');
+  }
+);
+//chane_lang
 Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
 
 
+//customer
+Route::prefix('customer')->group(function () {
+  Route::get('login',[CustomerController::class, 'login'])->name('customer.login');
+  Route::post('/checkLogin',[CustomerController::class, 'checkLogin'])->name('customer.checkLogin');
+
+  Route::middleware(['customer:customer'])->group(function () {
+    // Route::view('/login','fronten.customers.login')->name('login');
+    Route::post('/logout', [CustomerController::class, 'customerLogout'])->name('customer.logout');
+    Route::get('/register',[CustomerController::class, 'register'])->name('customer.register');
+  });
+  Route::middleware(['customer'])->group(function () {
+    Route::view('/home','fronten.homepage')->name('customer.home');
+  });
+});
+Route::post('/register',[CustomerController::class, 'registered'])->name('customer.checkregister');
+// Route::get
 
 
 
 
-require __DIR__.'/auth.php';
+
+
+
+
+require __DIR__ . '/auth.php';
 Route::get('/dashboard', function () {
   return view('admin.dashboard');
 })->name('dashboard')->middleware('auth');
@@ -79,7 +103,7 @@ Route::group(
     Route::get('role-trashed', [RoleController::class, 'trashed'])->name('role-trashed');
     Route::post('role-trashed/{id}', [RoleController::class, 'restore'])->name('admin.role.restore');
     Route::post('role-forceDelete/{id}', [RoleController::class, 'forceDelete'])->name('role-force-delete');
-    
+
     //permissions
     Route::prefix('/permissions')->group(function () {
       Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
@@ -93,8 +117,5 @@ Route::group(
 
 
 
-  });
-  
-
-
-
+  }
+);

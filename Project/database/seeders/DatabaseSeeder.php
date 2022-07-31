@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         // $this->importProducts();
         // $this->importUsers();
         // $this->importRoles();
-        $this->importPemission();
+        // $this->importPemission();
+        $this->importCustomer();
 
         // \App\Models\User::factory(10)->create();
 
@@ -294,5 +295,16 @@ class DatabaseSeeder extends Seeder
                     'group_key' =>'5',
                 ]);
         }
+    }
+    function importCustomer()
+    {
+        DB::table('customers')->insert([
+            'name' =>'customer1',
+            'email' =>'customer1@gmail.com',
+            'phone' =>'0377536987',
+            'address' =>'Gio Linh',
+            'password' =>Hash::make('12345678'),
+        ]);
+
     }
 }

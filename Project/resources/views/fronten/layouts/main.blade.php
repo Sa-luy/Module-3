@@ -1,4 +1,6 @@
-
+{{-- @php
+    dd(Auth::guard('customer')->user()->name)
+@endphp --}}
 <!doctype html>
 <html lang="en">
 
@@ -49,10 +51,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="bx bxl-envelope"></i> Xin Chào   @if (!empty($user))
-                                    {{$user->name}}
+                                <li><i class="bx bxl-envelope"></i>   @if (Auth::guard('customer')->user())
+                                    Xin Chào {{Auth::guard('customer')->user()->name}}
                                     @else
-                                    No name
+                                    Chào bạn
                                     @endif 
                                 </li>
                                 <li>Miễn phí ship cho dơn hàng trên <b 
@@ -81,17 +83,17 @@
                                 @if (!empty($user))
                                 <a href="#"><i class='bx bx-heart'></i>{{Auth::user()->name}}</a>
                                 @else
-                                <a href="{{route('login') }}"><i class='bx bxs-user-circle'></i>Login</a>
+                                <a href="{{route('customer.login') }}"><i class='bx bxs-user-circle'></i>Login</a>
                                 @endif 
                                 
                             </div>
                             <div class="header__top__right__auth">
                                 <li>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <a href="{{route('logout')}}" onclick="event.preventDefault();
-                                    this.closest('form').submit();" class="dropdown-item" >Log-out</a>
-                                  </form>
+                                    <a href="{{route('customer.logout')}}" 
+                                    onclick="event.preventDefault();document.
+                                    getElementById('customer-logout-form').submit();">Logout</a>
+                                    <form action="{{route('customer.logout')}}" id="customer-logout-form" method="POST">@csrf</form>
+                                  
                                 </li>
 
                             </div>

@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="row featured__filter">
-                @foreach ($products as $product)
+                @foreach ($products_home as $product)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg"

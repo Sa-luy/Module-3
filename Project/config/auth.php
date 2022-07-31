@@ -17,6 +17,10 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
+    'admin' =>[
+        'driver' => 'eloquent',
+        'model' =>App\Models\Customer::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -46,6 +50,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
+
     ],
 
 
@@ -76,6 +85,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
+
     ],
 
     /*
@@ -100,6 +114,11 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
+
     ],
 
     /*
