@@ -51,12 +51,12 @@ Route::prefix('customer')->group(function () {
   Route::get('login',[CustomerController::class, 'login'])->name('customer.login');
   Route::post('/checkLogin',[CustomerController::class, 'checkLogin'])->name('customer.checkLogin');
 
-  Route::middleware(['customer:customer'])->group(function () {
+  Route::middleware(['customer:customer','PreventBackHistory'])->group(function () {
     // Route::view('/login','fronten.customers.login')->name('login');
     Route::post('/logout', [CustomerController::class, 'customerLogout'])->name('customer.logout');
     Route::get('/register',[CustomerController::class, 'register'])->name('customer.register');
   });
-  Route::middleware(['customer'])->group(function () {
+  Route::middleware(['customer','PreventBackHistory'])->group(function () {
     Route::view('/home','fronten.homepage')->name('customer.home');
   });
 });
