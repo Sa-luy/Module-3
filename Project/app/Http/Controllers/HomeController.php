@@ -24,11 +24,11 @@ class HomeController extends Controller
     {
         $products = $this->product->paginate(5);
         $categories = $this->category->paginate(5);
-        $product_hot= $this->product->latest()->first();
+        // $product_hot= $this->product->latest()->first();
         $param=[
             'products' => $products,  
             'categories' => $categories,  
-            'product_hot' => $product_hot  
+            // 'product_hot' => $product_hot  
         ];
         return view('fronten.homepage',$param);
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Customer\SocialController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
@@ -57,12 +58,14 @@ Route::prefix('customer')->group(function () {
     Route::get('/register',[CustomerController::class, 'register'])->name('customer.register');
   });
   Route::middleware(['customer','PreventBackHistory'])->group(function () {
-    Route::view('/home','fronten.homepage')->name('customer.home');
+    Route::view('/home','fronten.homepage')->name('customer.home')->name('customer.home');
   });
 });
 Route::post('/register',[CustomerController::class, 'registered'])->name('customer.checkregister');
 // Route::get
+Route::get('/auth/redirect/{provider}', [SocialController::class,'redirect'])->name('login_google');
 
+Route::get('/callback/{provider}', [SocialController::class, 'callback']);
 
 
 
