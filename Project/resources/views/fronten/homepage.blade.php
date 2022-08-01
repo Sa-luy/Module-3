@@ -23,15 +23,15 @@
                 @foreach ($products_home as $product)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                         <div class="featured__item">
-                            {{-- <div class="featured__item__pic set-bg"
+                            <div class="featured__item__pic set-bg"
                                 data-setbg="{{ asset('storage/images/' . $product->image) }}">
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#"><i class="bx bx-heart"></i></a></li>
                                     <li><a href="#"><i class='bx bx-message-rounded-edit'></i></a></li>
                                     <li><a href="#" data-url="{{ route('addToCart', $product->id) }}"
                                             class="addCart"><i class='bx bx-cart-alt'></i></a></li>
-                                </ul> --}}
-                                @include('fronten.custom.cart')
+                                </ul>
+                                {{-- @include('fronten.custom.cart') --}}
                             </div>
                             <div class="featured__item__text">
                                 <h6><a href="#">{{ $product->name }}</a></h6>
@@ -328,12 +328,14 @@
 @endsection
 {{-- san pham mới --}}
 @section('hot_product')
-    <div class="hero__item set-bg" data-setbg="{{ asset('storage/images/' . $product_new->image) }}">
+    <div class="hero__item set-bg" data-setbg="{{ asset('storage/images/' . $product_hot->image) }}">
         <div class="hero__text">
-            {{-- <span>FRUIT FRESH</span>
-        <h2>Vegetable <br />100% tự nhiên</h2>
-        <p>nói không với hóa chất</p> --}}
-            <a href="#" class="primary-btn">Mua ngay</a>
+            <span>{{$product_hot->name}}</span>
+        <h2 style="color: rgb(246, 248, 249)">Vegetable <br />100% tự nhiên</h2>
+        <p>nói không với hóa chất</p>
+            <a href="#" ></a>
+          <button class="primary-btn"><a href="#" data-url="{{ route('addToCart', $product_hot->id) }}"
+                class="addCart">Add to cart</a></button>  
         </div>
     </div>
 @endsection
@@ -355,6 +357,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
     integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous">
 </script>
+{{-- adto cart --}}
 <script>
     $(function() {
         $('.addCart').on('click', addToCart)

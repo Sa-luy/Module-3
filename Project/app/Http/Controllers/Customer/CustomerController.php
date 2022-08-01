@@ -20,6 +20,7 @@ class CustomerController extends Controller
 
     function checkLogin(Request $request)
     {
+        
         $request->validate([
             'email' =>'required|email|exists:customers,email',
             'password' => 'required|min:8|max:30'

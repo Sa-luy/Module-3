@@ -4,6 +4,7 @@
 @endphp() --}}
 @extends('fronten.layouts.main')
 @section('hot_product')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="category">
     <h3 class="text-success">{{$categories_id->name}}</h3>
     <h3 class="text-info">List Product</h3>
@@ -11,7 +12,7 @@
         @foreach ($category_products as $product)
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                 <div class="featured__item">
-                    {{-- <div class="featured__item__pic set-bg"
+                    <div class="featured__item__pic set-bg"
                         data-setbg="{{ asset('storage/images/' . $product->image) }}">
                         <ul class="featured__item__pic__hover">
                             <li><a href="#"><i class="bx bx-heart"></i></a></li>
@@ -19,8 +20,8 @@
                             <li><a href="#" data-url="{{ route('addToCart', $product->id) }}"
                                     class="addCart"><i class='bx bx-cart-alt'></i></a></li>
                         </ul>
-                    </div> --}}
-                    @include('fronten.custom.cart')
+                    </div>
+                    {{-- @include('fronten.custom.cart') --}}
                     <div class="featured__item__text">
                         <h6><a href="#">{{ $product->name }}</a></h6>
                         <h5>{{ number_format($product->price) }}</h5>
@@ -32,4 +33,25 @@
     </div>
     {{ $category_products->links() }}
 </div>
+<script>
+    $(function() {
+        $('.addCart').on('click', addToCart)
+    })
+
+    function addToCart(event) {
+        event.preventDefault();
+        let url = $(this).data('url');
+
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            success: function(data) {
+                console.log(data)
+            },
+            error: function(data) {}
+
+        });
+    }
+</script>
 @endsection

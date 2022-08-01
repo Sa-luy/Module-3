@@ -9,7 +9,7 @@ class CartController extends Controller
 {
     public function addToCart($id)
     {
-        // session()->flush();
+        
         $product = Product::find($id);
 
         $cart = session()->get('cart');

@@ -37,35 +37,35 @@
 <body>
 
     <div class="limiter">
-        <div class="container-login100" style="background-image: url({{ asset('customer_login/images/bg-01.jpg')}});">
+        <div class="container-login100" style="background-image: url({{ asset('customer_login/images/bg-01.jpg') }});">
             <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                 <form class="login100-form validate-form" action="{{ route('customer.checkLogin') }}" method="POST">
-					<img src="{{asset('img/logo.PNG')}}" alt="">
-                    @if (Session::get('fail'))
-                        <div class="alert alert-danger">
-                            {{ Session::get('fail') }}
-                        </div>
-                    @endif
+                    <img src="{{ asset('img/logo.PNG') }}" alt="">
                     @csrf
                     <span class="login100-form-title p-b-49">
                         Login
+                        @if (Session::get('fail'))
+                            <div class="text-danger">
+                                {{ Session::get('fail') }}
+                            </div>
+                        @endif
                     </span>
 
-                    <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Email is reauired">
                         <span class="label-input100">Email</span>
-                        <input class="input100" type="text" name="email" placeholder="Type your username">
+                        <input class="input100" class="form-control @error('name') is-invalid @enderror" type="email" name="email" placeholder="Type your username">
                         @error('email')
-                            {{ $message }}
+                           <p class="text-danger"> {{ $message }}</p>
                         @enderror
                         <span class="focus-input100" data-symbol="&#xf206;"></span>
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <span class="label-input100">Password</span>
-                        <input class="input100" type="password" name="pass" placeholder="Type your password">
-						@error('password')
-						{{ $message }}
-					@enderror
+                        <input class="input100" type="password" name="password" placeholder="Type your password">
+                        @error('password')
+                        <p class="text-danger"> {{ $message }}</p>
+                        @enderror
                         <span class="focus-input100" data-symbol="&#xf190;"></span>
                     </div>
 
