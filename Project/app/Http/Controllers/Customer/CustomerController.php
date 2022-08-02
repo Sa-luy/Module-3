@@ -15,7 +15,12 @@ class CustomerController extends Controller
     }
     function login()
     {
+        // dd(!Auth::guard('customer')->check());
+        if(!Auth::guard('customer')->check()){
         return view('fronten.customers.login');
+        }
+        // dd('da login');
+        return redirect()->route('customer.home');
     }
 
     function checkLogin(Request $request)

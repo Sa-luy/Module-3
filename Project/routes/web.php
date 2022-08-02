@@ -58,7 +58,7 @@ Route::prefix('customer')->group(function () {
     Route::get('/register',[CustomerController::class, 'register'])->name('customer.register');
   });
   Route::middleware(['customer','PreventBackHistory'])->group(function () {
-    Route::view('/home','fronten.homepage')->name('customer.home')->name('customer.home');
+    Route::view('/home','fronten.homepage')->name('customer.home');
   });
 });
 Route::post('/register',[CustomerController::class, 'registered'])->name('customer.checkregister');

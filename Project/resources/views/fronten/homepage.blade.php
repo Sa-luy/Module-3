@@ -1,6 +1,5 @@
 @extends('fronten.layouts.main')
 @section('content')
-  
     <section class="featured spad">
         <div class="container">
             <div class="row">
@@ -330,12 +329,12 @@
 @section('hot_product')
     <div class="hero__item set-bg" data-setbg="{{ asset('storage/images/' . $product_new->image) }}">
         <div class="hero__text">
-            <span>{{$product_new->name}}</span>
-        <h2 style="color: rgb(246, 248, 249)">Vegetable <br />100% tự nhiên</h2>
-        <p>nói không với hóa chất</p>
-            <a href="#" ></a>
-          <button class="primary-btn"><a href="#" data-url="{{ route('addToCart', $product_new->id) }}"
-                class="addCart">Add to cart</a></button>  
+            <span>{{ $product_new->name }}</span>
+            <h2 style="color: rgb(246, 248, 249)">Vegetable <br />100% tự nhiên</h2>
+            <p>nói không với hóa chất</p>
+            <a href="#"></a>
+            <button class="primary-btn"><a href="#" data-url="{{ route('addToCart', $product_new->id) }}"
+                    class="addCart">Add to cart</a></button>
         </div>
     </div>
 @endsection
@@ -357,6 +356,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
     integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous">
 </script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 {{-- adto cart --}}
 <script>
     $(function() {
@@ -372,9 +372,22 @@
             url: url,
             dataType: 'json',
             success: function(data) {
-                console.log(data)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'successfully added to cart',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             },
-            error: function(data) {}
+            error: function(data) {
+                Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: 'Something went wrong!',
+  footer: '<a href="">Why do I have this issue?</a>'
+})
+            }
 
         });
     }

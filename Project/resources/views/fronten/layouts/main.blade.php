@@ -1,5 +1,5 @@
 {{-- @php
-    dd(Auth::guard('customer')->user()->name)
+    dd(session()->get('cart'))
 @endphp --}}
 <!doctype html>
 <html lang="en">
@@ -18,15 +18,8 @@
 
 
     <head>
-
-
-
-
-        <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
             rel="stylesheet">
-
-        <!-- Css Styles -->
         <link rel="stylesheet" href="{{ asset('home/css/bootstrap.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('home/css/font-awesome.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('home/css/elegant-icons.css') }}" type="text/css">
@@ -131,7 +124,13 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class='bx bx-heart-square'></i> <span>1</span></a></li>
-                            <li><a href="{{route('showCart')}}"><i class='bx bx-cart-alt'></i> <span>3</span></a></li>
+                            <li><a href="{{route('showCart')}}"><i class='bx bx-cart-alt'></i> 
+                                <span>@if(null !== (session()->get('cart')))
+                            {{count(session()->get('cart'))}}
+                            @else
+                            0
+                            @endif
+                            </span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>

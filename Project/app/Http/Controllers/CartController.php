@@ -3,28 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
     public function addToCart($id)
     {
-        
-        $product = Product::find($id);
+        try {
+            $product = Product::find($id);
 
-        $cart = session()->get('cart');
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity'] += 1;
-        } else {
-            $cart[$id] = [
-                'name' => $product->name,
-                'image'=> $product->image,
-                'price' => $product->price,
-                'quantity' => 1
-            ];
+            $cart = session()->get('cart');
+            if (isset($cart[$id])) {
+                $cart[$id]['quantity'] += 1;
+            } else {
+                $cart[$id] = [
+                    'name' => $product->name,
+                    'image'=> $product->image,
+                    'price' => $product->price,
+                    'quantity' => 1
+                ];
+            }
+            session()->put('cart', $cart);
+            return session()->get('cart');
+        } catch (Exception $e) {
+            Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            return response()->json(['error' => 'failed'],500);
         }
-        session()->put('cart', $cart);
-        return session()->get('cart');
+        
     }
     public function showCart()
     {
