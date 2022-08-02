@@ -33,6 +33,7 @@
     </div>
     {{ $category_products->links() }}
 </div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function() {
         $('.addCart').on('click', addToCart)
@@ -47,9 +48,23 @@
             url: url,
             dataType: 'json',
             success: function(data) {
-                console.log(data)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'successfully added to cart',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                window.location.reload();
             },
-            error: function(data) {}
+            error: function(data) {
+                Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: 'Something went wrong!',
+  footer: '<a href="">Why do I have this issue?</a>'
+})
+            }
 
         });
     }
