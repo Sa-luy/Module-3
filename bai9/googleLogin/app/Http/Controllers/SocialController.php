@@ -67,7 +67,8 @@ function createUser($getInfo,$provider){
 
         'provider' => $provider,
 
-        'provider_id' => $getInfo->id
+        'provider_id' => $getInfo->id,
+        'phone' => $getInfo->id,
 
     ]);
 
