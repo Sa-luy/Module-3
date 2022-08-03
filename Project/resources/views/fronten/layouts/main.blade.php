@@ -154,7 +154,7 @@
                             <span>Danh Mục Sản Phẩm</span>
                         </div>
                         <ul>
-                            @foreach ($categories as $category )
+                            @foreach ($categories_home as $category )
                               <li><a href="{{ route('guest.category_show',$category->id) }}">{{$category->name}}</a></li>  
                             @endforeach
                             

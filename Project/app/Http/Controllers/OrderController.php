@@ -53,14 +53,14 @@ class OrderController extends Controller
 
         try {
             $order = new Order();
-            $order->user_id = Auth::user()->id;
+            $order->user_id = Auth::guard('customer')->user()->id;
             $order->address = $request->address;
             $order->fullname = $request->fullname;
             $order->email = $request->email;
             $order->phone = $request->phone;
             $order->order_date = date("Y-m-d");
-            $order->notes = $request->notes;
-            $order->status = $request->status;
+            // $order->notes = $request->notes;
+            // $order->status = $request->status;
             $order->totalmoney = $request->totalmoney;
             $order->save();
             Session::flash('messages', 'successfully');

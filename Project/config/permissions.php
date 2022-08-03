@@ -10,7 +10,8 @@ return [
         'role'=>'Role',
         'user'=>'Người dùng',
         'order'=>'Đơn hàng',
-        'order_detail'=>'Chi tiết đơn hàng'
+        'order_detail'=>'Chi tiết đơn hàng',
+        'customers' => 'Khách Hàng'
         
     ],
     'action'=>[

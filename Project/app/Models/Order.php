@@ -20,4 +20,8 @@ class Order extends Model
         'status',
     ];
    protected $timeStamp=false;
+   function customer()
+   {
+    return $this->hasMany(Customer::class,)
+   }
 }

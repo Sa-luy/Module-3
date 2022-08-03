@@ -49,21 +49,26 @@ Route::get('lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang
 
 //customer
 Route::prefix('customer')->group(function () {
-  Route::get('login',[CustomerController::class, 'login'])->name('customer.login');
-  Route::post('/checkLogin',[CustomerController::class, 'checkLogin'])->name('customer.checkLogin');
 
-  Route::middleware(['customer:customer','PreventBackHistory'])->group(function () {
-    // Route::view('/login','fronten.customers.login')->name('login');
-    Route::post('/logout', [CustomerController::class, 'customerLogout'])->name('customer.logout');
-    Route::get('/register',[CustomerController::class, 'register'])->name('customer.register');
-  });
-  Route::middleware(['customer','PreventBackHistory'])->group(function () {
-    Route::view('/home','fronten.homepage')->name('customer.home');
-  });
+  Route::get('login', [CustomerController::class, 'login'])->name('customer.login');
+
+  Route::post('/checkLogin', [CustomerController::class, 'checkLogin'])->name('customer.checkLogin');
+
+  
+    Route::post('/logout', [CustomerController::class, 'customerLogout'])->name('customer.logout')
+    ->middleware(['customer:customer', 'PreventBackHistory']);
+ 
+ 
+    Route::view('/home', 'fronten.homepage')->name('customer.home')->middleware(['customer', 'PreventBackHistory']);
+
+  Route::get('/register', [CustomerController::class, 'register'])->name('customer.register');
+  
+    Route::post('/checkregister', [CustomerController::class, 'Postregistered'])->name('customer.checkregister');
 });
-Route::post('/register',[CustomerController::class, 'registered'])->name('customer.checkregister');
-// Route::get
-Route::get('/auth/redirect/{provider}', [SocialController::class,'redirect'])->name('login_google');
+
+//google
+
+Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('login_google');
 
 Route::get('/callback/{provider}', [SocialController::class, 'callback']);
 
@@ -118,7 +123,17 @@ Route::group(
     // Route::post('user-trashed/{id}', [UserController::class, 'restore'])->name('admin.user.restore');
     // Route::post('user-forceDelete/{id}', [UserController::class, 'forceDelete'])->name('user-force-delete');
 
+    //customer
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+    Route::delete('/customer/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+    Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
+    Route::get('/customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::put('/customer/{id}/', [CustomerController::class, 'update'])->name('customer.update');
+    Route:: get('/customertrash',[CustomerController::class, 'trash'])->name('customer-trashed');
+    Route::post('/customer/{id}/', [CustomerController::class, 'restore'])->name('customer.restore');
+    Route::post('/force_delete_customer/{id}/', [CustomerController::class, 'forceDelete'])->name('customer.forceDelete');
 
-
+    
   }
 );
+

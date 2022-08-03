@@ -19,6 +19,18 @@
             <a href="{{route('product.index')}}" class="dash-nav-item dash">
                 <i class="fas fa-cube"></i> {{__('lang.routename.product')}} </a>
         </div>
+        {{-- <div class="dash-nav-dropdown ">
+            <a href="{{route('customer.index')}}" class="dash-nav-item dash">
+                <i class="fas fa-cube"></i> {{__('lang.routename.customer')}} </a>
+        </div> --}}
+        <div class="dash-nav-dropdown">
+            <a href="#" class="dash-nav-item dash-nav-dropdown-toggle">
+                <i class="fas fa-cube"></i>{{__('lang.routename.customer')}}</a>
+            <div class="dash-nav-dropdown-menu">
+                <i class="fas fa-file"></i>  <a href="{{route('customer.index')}}" class="dash-nav-dropdown-item">{{__('lang.routename.customer-list')}}</a>
+                <i class="fas fa-file"></i> <a href="#" class="dash-nav-dropdown-item">File Excel</a>
+            </div>
+        </div>
         <div class="dash-nav-dropdown">
             <a href="{{route('user.index')}}" class="dash-nav-item dash">
                 <i class="fa-solid fa-users"></i>{{__('lang.routename.user')}}</a>

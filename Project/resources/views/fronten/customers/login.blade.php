@@ -44,12 +44,13 @@
                     @csrf
                     <span class="login100-form-title p-b-49">
                         Login
-                        @if (Session::get('fail'))
-                            <div class="text-danger">
-                                {{ Session::get('fail') }}
-                            </div>
-                        @endif
+                       
                     </span>
+                    @if (Session::get('fail'))
+                    <div class="text-danger">
+                        {{ Session::get('fail') }}
+                    </div>
+                @endif
 
                     <div class="wrap-input100 validate-input m-b-23" data-validate="Email is reauired">
                         <span class="label-input100">Email</span>
@@ -109,7 +110,7 @@
                             Or Sign Up Using
                         </span>
 
-                        <a href="#" class="txt2">
+                        <a href="{{ route('customer.register')}}" class="txt2">
                             Sign Up
                         </a>
                     </div>

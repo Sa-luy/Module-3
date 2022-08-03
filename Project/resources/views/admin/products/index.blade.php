@@ -7,7 +7,8 @@
 
         @can('create', \App\Models\Product::class)
             <div class="col">
-                <a href="{{ route('product.create') }}" class="btn "><i class="fa-solid fa-calendar-plus"></i></a>
+                <a href="{{ route('product.create') }}" class="btn btn-primary "><i class="fa-solid fa-calendar-plus"></i></a>
+              
             </div>
         @endcan
         <div class="col">
@@ -22,8 +23,9 @@
             <div class="input-group">
                 {{-- <input type="text" class="input-sm form-control" placeholder="Search"> --}}
                 <span class="input-group-btn">
-                    <h2> <a href="{{ route('product-trashed') }}" class="btn btn-sm "><button type="subit" class="">
-                                <span class="btn-label"><i class="fa fa-trash"></i></span></button></a></h2>
+                    <h2> <a href="{{ route('product-trashed') }}" class="btn btn-sm ">
+                        <button type="subit" class="btn btn-labeled btn-danger">
+                            <span class="btn-label"><i class="fa fa-trash"></i>Trash</span></button></a>
                 </span>
             </div>
         </div>

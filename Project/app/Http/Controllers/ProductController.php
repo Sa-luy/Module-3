@@ -199,7 +199,6 @@ class ProductController extends Controller
             return response()->json(['messages' =>$messages,
             'status' => 0
         ],200);
-            // return redirect()->route('category.index');
         }
     }
 

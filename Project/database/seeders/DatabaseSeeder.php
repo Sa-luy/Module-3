@@ -298,13 +298,15 @@ class DatabaseSeeder extends Seeder
     }
     function importCustomer()
     {
+        for($i=6;$i<=10;$i++){
         DB::table('customers')->insert([
-            'name' =>'customer1',
-            'email' =>'customer1@gmail.com',
-            'phone' =>'0377536987',
+            'name' =>'customer'.$i,
+            'email' =>'customer'.$i.'@gmail.com',
+            'phone' =>'0377536'.$i.'987',
             'address' =>'Gio Linh',
             'password' =>Hash::make('12345678'),
         ]);
+    }
 
     }
 }

@@ -30,7 +30,7 @@
                     <i class="fas fa-cart-arrow-down"></i>
                 </div>
                 <div class="stats-data">
-                    <div class="stats-number">{{count($categories)}}</div>
+                    <div class="stats-number">{{count($categories_home)}}</div>
                     <div class="stats-change">
                         <span class="stats-percentage">+17.5%</span>
                         <span class="stats-timeframe">from last month</span>
