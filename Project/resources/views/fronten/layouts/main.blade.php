@@ -13,13 +13,13 @@
     <title>Thanh moc huong </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" ></script>
-        <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
 
     <head>
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-            rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+            rel="stylesheet"> --}}
         <link rel="stylesheet" href="{{ asset('home/css/bootstrap.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('home/css/font-awesome.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('home/css/elegant-icons.css') }}" type="text/css">
@@ -32,11 +32,23 @@
     <style>
         a {
             overflow: hidden;
-    white-space: nowrap; 
-    text-overflow: ellipsis;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     </style>
-  <body>
+
+<body>
+    @if (Session::get('errors'))
+        <div class="alert alert-warning" role="alert">
+            {{ Session::get('errors') }}
+        </div>
+    @endif
+    @if (Session::get('messages'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('messages') }}
+        </div>
+    @endif
+
     <header class="header">
         <div class="header__top">
             <div class="container">
@@ -44,14 +56,14 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="bx bxl-envelope"></i>   @if (Auth::guard('customer')->user())
-                                    Xin Chào {{Auth::guard('customer')->user()->name}}
+                                <li><i class="bx bxl-envelope"></i>
+                                    @if (Auth::guard('customer')->user())
+                                        Xin Chào {{ Auth::guard('customer')->user()->name }}
                                     @else
-                                    Chào bạn
-                                    @endif 
+                                        Chào bạn
+                                    @endif
                                 </li>
-                                <li>Miễn phí ship cho dơn hàng trên <b 
-                                    style="color: red">300,000</b><sup>đ</sup></li>
+                                <li>Miễn phí ship cho dơn hàng trên <b style="color: red">300,000</b><sup>đ</sup></li>
                             </ul>
                         </div>
                     </div>
@@ -71,22 +83,23 @@
                                     <li><a href="#">Spanis</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul>
-                            </div> 
+                            </div>
                             <div class="header__top__right__auth">
                                 @if (!empty($user))
-                                <a href="#"><i class='bx bx-heart'></i>{{Auth::user()->name}}</a>
+                                    <a href="#"><i class='bx bx-heart'></i>{{ Auth::user()->name }}</a>
                                 @else
-                                <a href="{{route('customer.login') }}"><i class='bx bxs-user-circle'></i>Login</a>
-                                @endif 
-                                
+                                    <a href="{{ route('customer.login') }}"><i class='bx bxs-user-circle'></i>Login</a>
+                                @endif
+
                             </div>
                             <div class="header__top__right__auth">
                                 <li>
-                                    <a href="{{route('customer.logout')}}" 
-                                    onclick="event.preventDefault();document.
+                                    <a href="{{ route('customer.logout') }}"
+                                        onclick="event.preventDefault();document.
                                     getElementById('customer-logout-form').submit();">Logout</a>
-                                    <form action="{{route('customer.logout')}}" id="customer-logout-form" method="POST">@csrf</form>
-                                  
+                                    <form action="{{ route('customer.logout') }}" id="customer-logout-form"
+                                        method="POST">@csrf</form>
+
                                 </li>
 
                             </div>
@@ -99,13 +112,13 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('img/logo-tmh.png') }}" alt=""></a>
+                        <a href="{{ route('home') }}"><img src="{{ asset('img/logo-tmh.png') }}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="{{ route('home') }}">Home</a></li>
                             <li><a href="#">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
@@ -124,13 +137,14 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class='bx bx-heart-square'></i> <span>1</span></a></li>
-                            <li><a href="{{route('showCart')}}"><i class='bx bx-cart-alt'></i> 
-                                <span>@if(null !== (session()->get('cart')))
-                            {{count(session()->get('cart'))}}
-                            @else
-                            0
-                            @endif
-                            </span></a></li>
+                            <li><a href="{{ route('showCart') }}"><i class='bx bx-cart-alt'></i>
+                                    <span>
+                                        @if (null !== session()->get('cart'))
+                                            {{ count(session()->get('cart')) }}
+                                        @else
+                                            0
+                                        @endif
+                                    </span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
@@ -140,10 +154,10 @@
                 <i class="fa fa-bars"></i>
             </div>
         </div>
-     
-    
+
+
     </header>
-    
+
     <section class="hero">
         <div class="container">
             <div class="row">
@@ -154,33 +168,40 @@
                             <span>Danh Mục Sản Phẩm</span>
                         </div>
                         <ul>
-                            @foreach ($categories_home as $category )
-                              <li><a href="{{ route('guest.category_show',$category->id) }}">{{$category->name}}</a></li>  
+                            @foreach ($categories_home as $category)
+                                <li><a
+                                        href="{{ route('guest.category_show', $category->id) }}">{{ $category->name }}</a>
+                                </li>
                             @endforeach
-                            
-                        
+
+
                         </ul>
                         <div class="hero__categories__all">
                             <i class='bx bxl-product-hunt'></i>
                             <span>Sản Phẩm mới</span>
                         </div>
                         <ul>
-                            @foreach ($products_home as $product )
-                            <li><a style="" href="{{ route('guest.product_show',$product->id); }}">{{$product->name}} </a></li>
+                            @foreach ($products_home as $product)
+                                <li><a style=""
+                                        href="{{ route('guest.product_show', $product->id) }}">{{ $product->name }}
+                                    </a></li>
                             @endforeach
-                       
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
+                            <form action="{{route('search')}}" method="GET">
+                                @csrf
                                 <div class="hero__search__categories">
                                     Tìm Kiếm
-                                    <span ><i class='bx bx-search'></i></span>
+                                    <span>
+                                        <i class='bx bx-search'></i>
+                                    </span>
                                 </div>
-                                <input type="text" placeholder="Bạn cần tìm gì?">
+                                <input type="text" placeholder="Bạn cần tìm gì?" class="search" name="name">
                                 <button type="submit" class="site-btn">Tìm</button>
                             </form>
                         </div>
@@ -193,96 +214,97 @@
                             </div>
                             <div class="hero__search__phone__text">
                                 <h5>01234546789</h5>
-                                <span>Hỗ trợ miễn phí <h5>24/7 </h5></span>
+                                <span>Hỗ trợ miễn phí 24/7 </span>
                             </div>
                         </div>
                     </div>
                     @yield('hot_product')
                 </div>
-               
+
             </div>
         </div>
     </section>
     {{-- duyệt sản phẩm --}}
 
 
-@yield('content')
-</div>
-<footer class="footer spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer__about">
-                    <div class="footer__about__logo">
-                        <a href="./index.html"><img src="{{ asset('home/img/logo.png') }}" alt=""></a>
-                    </div>
-                    <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello@colorlib.com</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                <div class="footer__widget">
-                    <h6>Useful Links</h6>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">About Our Shop</a></li>
-                        <li><a href="#">Secure Shopping</a></li>
-                        <li><a href="#">Delivery infomation</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Our Sitemap</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">Who We Are</a></li>
-                        <li><a href="#">Our Services</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Innovation</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="footer__widget">
-                    <h6>Join Our Newsletter Now</h6>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#">
-                        <input type="text" placeholder="Enter your mail">
-                        <button type="submit" class="site-btn">Subscribe</button>
-                    </form>
-                    <div class="footer__widget__social">
-                        <a href="#"><i class='bx bxl-facebook'></i></a>
-                        <a href="#"><i class='bx bxl-instagram'></i></a>
-                        <a href="#"><i class="bx bxl-twitter"></i></a>
-                        <a href="#"><i class="bx bxl-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="footer__copyright">
-                    <div class="footer__copyright__text">
-                        <p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i
-                                class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
-                    </div>
-                    <div class="footer__copyright__payment"><img src="{{ asset('home/img/payment-item.png') }}"
-                            alt=""></div>
-                </div>
-            </div>
-        </div>
+    @yield('content')
     </div>
-</footer>
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="{{ asset('home/img/logo.png') }}" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">About Our Shop</a></li>
+                            <li><a href="#">Secure Shopping</a></li>
+                            <li><a href="#">Delivery infomation</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Our Sitemap</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="#">Who We Are</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Projects</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Innovation</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Join Our Newsletter Now</h6>
+                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Enter your mail">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class='bx bxl-facebook'></i></a>
+                            <a href="#"><i class='bx bxl-instagram'></i></a>
+                            <a href="#"><i class="bx bxl-twitter"></i></a>
+                            <a href="#"><i class="bx bxl-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>
+                                    document.write(new Date().getFullYear());
+                                </script> All rights reserved | This template is made with <i
+                                    class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                    target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="{{ asset('home/img/payment-item.png') }}"
+                                alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </footer>
 
     <!-- Js Plugins -->
     <script src="{{ asset('home/js/jquery-3.3.1.min.js') }}"></script>
@@ -294,11 +316,15 @@
     <script src="{{ asset('home/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('home/js/main.js') }}"></script>
     <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-{{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script> --}}
 
 </body>

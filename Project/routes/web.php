@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Customer\SocialController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
@@ -35,6 +36,7 @@ Route::group(
   function () {
     Route::get('product_show/{id}', [HomeController::class, 'showProduct'])->name('guest.product_show');
     Route::get('category_show/{id}', [HomeController::class, 'showCategory'])->name('guest.category_show');
+    Route::get('search', [HomeController::class, 'search'])->name('search');
     // cart
     Route::get('show-cart', [CartController::class, 'showCart'])->name('showCart');
     Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
@@ -60,6 +62,7 @@ Route::prefix('customer')->group(function () {
  
  
     Route::view('/home', 'fronten.homepage')->name('customer.home')->middleware(['customer', 'PreventBackHistory']);
+    Route::post('customer-order',[CustomerOrderController::class,'customerOrder'])->name('customerOrder')->middleware('customer');
 
   Route::get('/register', [CustomerController::class, 'register'])->name('customer.register');
   

@@ -17,12 +17,11 @@ class CheckCustomer
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->routeIs('customer.*')){
-        if(!Auth::guard('customer')->check() ){
-            return redirect()->route('customer.login');
-        }
-        return $next($request);
-    }
-   
+        // if ($request->routeIs('customer.*')) {
+            if (!Auth::guard('customer')->check()) {
+                return redirect()->route('customer.login');
+            }
+            return $next($request);
+        // }
     }
 }

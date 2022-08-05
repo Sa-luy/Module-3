@@ -22,7 +22,8 @@ class CartController extends Controller
                     'name' => $product->name,
                     'image'=> $product->image,
                     'price' => $product->price,
-                    'quantity' => 1
+                    'quantity' => 1,
+                    'product_id' => $product->id
                 ];
             }
             session()->put('cart', $cart);
@@ -36,6 +37,7 @@ class CartController extends Controller
     public function showCart()
     {
         $carts= (session()->get('cart'));
+        // dd($carts);
         return view('fronten.showCart', compact('carts'));
         // echo '<pre>';
         // print_r($items);

@@ -50,6 +50,7 @@ class OrderController extends Controller
      */
     public function store(OderRequest $request)
     {
+        dd($request->all());
 
         try {
             $order = new Order();
@@ -63,6 +64,7 @@ class OrderController extends Controller
             // $order->status = $request->status;
             $order->totalmoney = $request->totalmoney;
             $order->save();
+            
             Session::flash('messages', 'successfully');
             return redirect()->route('order.index');
         } catch (Exception $e) {

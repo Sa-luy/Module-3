@@ -28,8 +28,8 @@ class OderRequest extends FormRequest
             'email' =>'required',
             'phone' =>'required',
             'address' =>'required',
-            'notes' =>'required',
-            'status' =>'required',
+            // 'notes' =>'required',
+            // 'status' =>'required',
             'totalmoney' =>'required',
             
         ];

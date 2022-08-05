@@ -25,43 +25,50 @@ class HomeController extends Controller
         $products = $this->product->paginate(5);
         $categories = $this->category->paginate(5);
         // $product_hot= $this->product->latest()->first();
-        $param=[
-            'products' => $products,  
-            'categories' => $categories,  
+        $param = [
+            'products' => $products,
+            'categories' => $categories,
             // 'product_hot' => $product_hot  
         ];
-        return view('fronten.homepage',$param);
+        return view('fronten.homepage', $param);
     }
 
     public function showProduct(Product $product, $id)
     {
         try {
             $product =  Product::find($id);
-        $param = [
-            'product' => $product
-        ];
-        return view('fronten.custom.product_show', $param);
-    } catch (Exception $e) {
-        Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
-        abort(404);
-    }
-        
+            $param = [
+                'product' => $product
+            ];
+            return view('fronten.custom.product_show', $param);
+        } catch (Exception $e) {
+            Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            abort(404);
+        }
     }
 
     public function showCategory(Category $category, $id)
     {
         try {
-             $categories_id = Category::findOrFail($id);
-             $category_products = Product::where('category_id',$id)->paginate(8);
-        $param=[
-            'category_products' => $category_products,
-            'categories_id' =>$categories_id
-        ];
-        return view('fronten.custom.show_category',$param);
+            $categories_id = Category::findOrFail($id);
+            $category_products = Product::where('category_id', $id)->paginate(8);
+            $param = [
+                'category_products' => $category_products,
+                'categories_id' => $categories_id
+            ];
+            return view('fronten.custom.show_category', $param);
         } catch (Exception $e) {
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
             abort(404);
         }
-       
+    }
+    function search(Request $request)
+    {
+        // dd($request->all());
+        $search_products=Product::where('name', 'LIKE', '%' . $request->name . '%');
+        $param= [
+            'search_products' => $search_products
+        ];
+        return view('fronten.custom.search',$param);
     }
 }

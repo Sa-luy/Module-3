@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         $user = Auth::user();
-        $categories_home = Category::latest()->paginate(8);
-        $products_home = Product::all();
+        $categories_home = Category::latest()->paginate(5);
+        $products_home = Product::latest()->paginate(5);
         $product_new = Product::latest()->first();
         $carts = session()->get('cart');
         View::share([

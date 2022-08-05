@@ -1,12 +1,14 @@
-
+@extends('fronten.layouts.main')
+@section('hot_product')
+<h1>list search</h1>
 @extends('fronten.layouts.main')
 @section('hot_product')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="category">
-    <h3 class="text-success">{{$categories_id->name}}</h3>
-    <h3 class="text-info">List Product</h3>
+    <h3 class="text-success">list</h3>
+    <h3 class="text-info"></h3>
     <div class="row featured__filter">
-        @foreach ($category_products as $product)
+        @foreach ($search_products as $product)
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                 <div class="featured__item">
                     <div class="featured__item__pic set-bg"
@@ -30,7 +32,7 @@
             </div>
         @endforeach
     </div>
-    {{ $category_products->links() }}
+    {{-- {{ $search_products->links() }} --}}
 </div>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -68,4 +70,5 @@
         });
     }
 </script>
+@endsection
 @endsection

@@ -22,6 +22,14 @@ class Order extends Model
    protected $timeStamp=false;
    function customer()
    {
-    return $this->hasMany(Customer::class,)
+    return $this->hasMany(Customer::class,'customer_id','id');
+   }
+   function products()
+   {
+    return $this->belongsToMany(Product::class,'order_detail','order_id','product_id');
+   }
+   function order_details()
+   {
+    return $this->hasMany(Oder_detail::class,'order_id','id');
    }
 }

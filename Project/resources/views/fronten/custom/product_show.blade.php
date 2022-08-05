@@ -1,5 +1,6 @@
 @extends('fronten.layouts.main')
 @section('hot_product')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     .featured__item__pic{
         height: 350px;
@@ -10,7 +11,20 @@
             <div class="col-md-4">
                 <div class="mix oranges fresh-meat">
                     <div class="featured__item">
-                        @include('fronten.custom.cart')
+                        <div class="featured__item__pic set-bg"
+                        data-setbg="{{ asset('storage/images/' . $product->image) }}">
+                        <ul class="featured__item__pic__hover">
+                            <li><a href="#"><i class="bx bx-heart"></i></a></li>
+                            <li><a href="#"><i class='bx bx-message-rounded-edit'></i></a></li>
+                            <li><a href="#" data-url="
+                                @if(Auth::guard('customer')->check()) 
+                                {{ route('addToCart', $product->id) }}
+                                @endif
+                                "
+                                    class="addCart"><i class='bx bx-cart-alt'></i></a></li>
+                        </ul>
+                        {{-- @include('fronten.custom.cart') --}}
+                    </div>
                     </div>
                 </div>
             </div>
@@ -45,4 +59,40 @@
             </div>
         </div>
     </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(function() {
+            $('.addCart').on('click', addToCart)
+        })
+    
+        function addToCart(event) {
+            event.preventDefault();
+            let url = $(this).data('url');
+    
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                success: function(data) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'successfully added to cart',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    window.location.reload();
+                },
+                error: function(data) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                        footer: '<a href="{{ route('customer.login') }}">To be continue shopping, login please!</a>'
+                    })
+                }
+    
+            });
+        }
+    </script>
 @endsection

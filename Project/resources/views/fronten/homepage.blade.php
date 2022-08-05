@@ -1,5 +1,6 @@
 @extends('fronten.layouts.main')
 @section('content')
+
     <section class="featured spad">
         <div class="container">
             <div class="row">
@@ -27,7 +28,10 @@
                                 <ul class="featured__item__pic__hover">
                                     <li><a href="#"><i class="bx bx-heart"></i></a></li>
                                     <li><a href="#"><i class='bx bx-message-rounded-edit'></i></a></li>
-                                    <li><a href="#" data-url="{{ route('addToCart', $product->id) }}"
+                                    <li><a href="#"
+                                            data-url="
+                                        @if (Auth::guard('customer')->check()) {{ route('addToCart', $product->id) }} @endif
+                                        "
                                             class="addCart"><i class='bx bx-cart-alt'></i></a></li>
                                 </ul>
                                 {{-- @include('fronten.custom.cart') --}}
@@ -330,10 +334,12 @@
     <div class="hero__item set-bg" data-setbg="{{ asset('storage/images/' . $product_new->image) }}">
         <div class="hero__text">
             <span>{{ $product_new->name }}</span>
-            <h2 >Vegetable <br />100% tự nhiên</h2>
+            <h2>Vegetable <br />100% tự nhiên</h2>
             <p>nói không với hóa chất</p>
             <a href="#"></a>
-            <button class="primary-btn"><a href="#" data-url="{{ route('addToCart', $product_new->id) }}"
+            <button class="primary-btn"><a href="#"
+                    data-url="@if (Auth::guard('customer')->check()) {{ route('addToCart', $product->id) }} @endif"
+                    
                     class="addCart">Add to cart</a></button>
         </div>
     </div>
@@ -366,6 +372,7 @@
     function addToCart(event) {
         event.preventDefault();
         let url = $(this).data('url');
+        
 
         $.ajax({
             type: "GET",
@@ -377,17 +384,17 @@
                     icon: 'success',
                     title: 'successfully added to cart',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 10500
                 })
                 window.location.reload();
             },
             error: function(data) {
                 Swal.fire({
-  icon: 'error',
-  title: 'Oops...',
-  text: 'Something went wrong!',
-  footer: '<a href="">Why do I have this issue?</a>'
-})
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href="{{ route('customer.login') }}">To be continue shopping, login please!</a>'
+                })
             }
 
         });

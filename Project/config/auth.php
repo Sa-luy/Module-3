@@ -17,7 +17,7 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
-    'admin' =>[
+    'customer' =>[
         'driver' => 'eloquent',
         'model' =>App\Models\Customer::class,
     ],
