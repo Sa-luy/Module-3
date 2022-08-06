@@ -69,11 +69,16 @@
                         </div>
                         <div class="blog__item__text">
                             <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
+                                <li>$: {{$product_item->price}}</li>
+                                <li>còn :{{$product_item->amouth}} sản phẩm</li>
+                                <li><a href="#"
+                                    data-url="
+                            @if (Auth::guard('customer')->check()) {{ route('addToCart', $product->id) }} @endif
+                            "
+                                    class="btn btn-success addCart">Add To Cart</a></li>
                             </ul>
-                            <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                            <h5><a href="{{ route('category.show', $product_item->category->id) }}">{{$product_item->description}} </a></h5>
+                            <p>{{$product_item->status}}  </p>
                         </div>
                     </div>
                 </div>

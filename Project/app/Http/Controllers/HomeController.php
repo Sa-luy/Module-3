@@ -38,8 +38,8 @@ class HomeController extends Controller
         try {
             $product =  Product::find($id);
             $id_category=$product->category->id;
-            $categoryitems=Category::findOrFail($id_category)->products;
-            $categoryitems= $categoryitems->paginate(5);
+            $categoryitems=Category::findOrFail($id_category)->products()->paginate(5);
+            // $categoryitems= $categoryitems->paginate(5);
             $param = [
                 'product' => $product,
                 'categoryitems' => $categoryitems
