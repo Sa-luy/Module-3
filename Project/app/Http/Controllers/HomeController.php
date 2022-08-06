@@ -71,10 +71,11 @@ class HomeController extends Controller
     function search(Request $request)
     {
         // dd($request->all());
-        $search_products=Product::where('name', 'LIKE', '%' . $request->name . '%');
+        $search_products=Product::where('name', 'LIKE', '%' . $request->name . '%')->get();
         $param= [
             'search_products' => $search_products
         ];
+        // dd($search_products);
         return view('fronten.custom.search',$param);
     }
 }
