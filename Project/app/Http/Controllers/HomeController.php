@@ -37,9 +37,15 @@ class HomeController extends Controller
     {
         try {
             $product =  Product::find($id);
+            $id_category=$product->category->id;
+            $categoryitems=Category::findOrFail($id_category)->products;
+            $categoryitems= $categoryitems->paginate(5);
             $param = [
-                'product' => $product
+                'product' => $product,
+                'categoryitems' => $categoryitems
+
             ];
+            // dd($categoryitems);
             return view('fronten.custom.product_show', $param);
         } catch (Exception $e) {
             Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
