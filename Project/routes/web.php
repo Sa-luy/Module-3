@@ -37,6 +37,9 @@ Route::group(
     Route::get('product_show/{id}', [HomeController::class, 'showProduct'])->name('guest.product_show');
     Route::get('category_show/{id}', [HomeController::class, 'showCategory'])->name('guest.category_show');
     Route::get('search', [HomeController::class, 'search'])->name('search');
+   //search advance
+    Route::get('search-advance_product',[HomeController::class,'getViewSearch'])->name('view-search');
+    Route::post('search-advance',[HomeController::class,'getProductSearch'])->name('search_advance_product');
     // cart
     Route::get('show-cart', [CartController::class, 'showCart'])->name('showCart');
     Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');

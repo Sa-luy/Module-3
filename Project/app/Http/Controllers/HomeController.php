@@ -37,8 +37,8 @@ class HomeController extends Controller
     {
         try {
             $product =  Product::find($id);
-            $id_category=$product->category->id;
-            $categoryitems=Category::findOrFail($id_category)->products()->paginate(5);
+            $id_category = $product->category->id;
+            $categoryitems = Category::findOrFail($id_category)->products()->paginate(5);
             // $categoryitems= $categoryitems->paginate(5);
             $param = [
                 'product' => $product,
@@ -70,12 +70,48 @@ class HomeController extends Controller
     }
     function search(Request $request)
     {
-        // dd($request->all());
         $search_products=Product::where('name', 'LIKE', '%' . $request->name . '%')->get();
         $param= [
             'search_products' => $search_products
         ];
-        // dd($search_products);
         return view('fronten.custom.search',$param);
+    }
+ 
+  
+    
+    public function getProductSearch(Request $request)
+    {
+        // $product = Product::query();
+
+        if ($request->name !== null ) {
+           $product =  Product::where('name', 'LIKE', '%' . $request->name . '%');
+           $product_name =  $product->get();
+        $products[] = $product_name;
+        }
+
+        if ($request->status !== null) {
+           $product =  Product::where('status', $request->status);
+           $product_status =  $product->get();
+           $products[] = $product_status;
+        }
+        if ($request->description !== null) {
+           $product =  Product::where('description', $request->description);
+           $product_description =  $product->get();
+           
+           $products[] = $product_description;
+        }
+
+        if ($request->price !== null) {
+           $product =  Product::where('price','<=', $request->price);
+           $product_price =  $product->get();
+           $products[] = $product_price;
+        }
+        dd($products);
+        // $products =  $product->get();
+        $param= [
+            'search_products' => $products
+        ];
+       
+        return view('fronten.custom.search_advance', $param);
     }
 }
