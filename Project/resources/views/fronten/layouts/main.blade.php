@@ -85,11 +85,17 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                @if (!empty($user))
+                                {{-- @if (!empty($user))
                                     <a href="#"><i class='bx bx-heart'></i>{{ Auth::user()->name }}</a>
                                 @else
                                     <a href="{{ route('customer.login') }}"><i class='bx bxs-user-circle'></i>Login</a>
-                                @endif
+                                @endif --}}
+                                @if(Auth::guard('customer')->check())
+                                    <li><a href="{{route('profile')}}"><i class="fa fa-user-in" aria-hidden="true"></i>Info</a></li>
+                                    @else
+                                    {{-- <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li> --}}
+                                    <li><a href="{{ route('customer.login') }}"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng nhập</a></li>
+                                    @endif
 
                             </div>
                             <div class="header__top__right__auth">

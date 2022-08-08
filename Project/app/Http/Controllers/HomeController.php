@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Product;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use lang\en\messages;
 use PhpParser\Node\Expr;
@@ -68,6 +70,44 @@ class HomeController extends Controller
             abort(404);
         }
     }
+    function getProfile()
+    {
+        $customer_curent=Auth::guard('customer')->user();
+        // dd();
+        $param = [
+            'customer_curent'=> $customer_curent
+        ];
+        return view('fronten.custom.customer_profile', $param);
+    }
+    function editProfile(Request $request,Customer $customer)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+        // dd($request->file('avatar'));
+        try {
+            $id= Auth::guard('customer')->user()->id;
+        $customer_curent=Customer::findOrFail($id);
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $fileExtension = $file->getClientOriginalExtension(); //jpg,png lấy ra định dạng file và trả về
+            $fileName = time(); //45678908766 tạo tên file theo thời gian
+            $newFileName = $fileName . '.' . $fileExtension; //45678908766.jpg
+            $request->file('avatar')->storeAs('public/images/user', $newFileName); //lưu file vào mục public/images với tê mới là $newFileName
+            $customer_curent->avatar = $newFileName; // cột image gán bằng tên file mới
+        }else{
+            $customer_curent->avatar = $customer_curent->avatar;
+        }
+        $customer_curent->save();
+        return redirect()->back();
+        } catch (Exception $e) {
+            Log::error('messages' . $e->getMessage() . '---Line' . $e->getLine());
+            return redirect()->back();
+        }
+        
+        
+    }
+
     function search(Request $request)
     {
         $search_products=Product::where('name', 'LIKE', '%' . $request->name . '%')->get();
