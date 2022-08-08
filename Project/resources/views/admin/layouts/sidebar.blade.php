@@ -28,7 +28,7 @@
                 <i class="fas fa-cube"></i>{{__('lang.routename.customer')}}</a>
             <div class="dash-nav-dropdown-menu">
                 <i class="fas fa-file"></i>  <a href="{{route('customer.index')}}" class="dash-nav-dropdown-item">{{__('lang.routename.customer-list')}}</a>
-                <i class="fas fa-file"></i> <a href="#" class="dash-nav-dropdown-item">File Excel</a>
+                <i class="fas fa-file"></i> <a href="{{route('export')}}" class="dash-nav-dropdown-item">File Excel</a>
             </div>
         </div>
         <div class="dash-nav-dropdown">

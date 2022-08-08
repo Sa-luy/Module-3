@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Customer\ExportCustomerController;
 use App\Http\Controllers\Customer\SocialController;
 use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\DashboradController;
@@ -70,6 +71,8 @@ Route::prefix('customer')->group(function () {
   Route::get('/register', [CustomerController::class, 'register'])->name('customer.register');
   
     Route::post('/checkregister', [CustomerController::class, 'Postregistered'])->name('customer.checkregister');
+    Route::get('export',[ExportCustomerController::class, 'export'])->name(('export'));
+    Route::post('import',[ExportCustomerController::class, 'import'])->name(('import'));
 });
 
 //google

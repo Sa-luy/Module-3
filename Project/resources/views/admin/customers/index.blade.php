@@ -2,7 +2,15 @@
 @section('content')
     <div class="customers">
         <div class="row">
-            <div class="col"></div>
+            <div class="col"><form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file" class="form-control">
+                @if ($errors->any())
+                <p style="color:red">{{ $errors->first('file') }}</p>
+            @endif
+                <br>
+                <button class="btn btn-success">Import User Data</button>
+            </form></div>
             <div class="col">
                 @if(Session::has('messages'))
                 <p class="text-danger">{{Session::get('success') }}</p>
