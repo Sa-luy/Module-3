@@ -2,7 +2,11 @@
 @section('hot_product')
 <div class="row">
     <div class="col-8">
+        @if ($customer_curent->avatar)
+        <img src="{{asset('storage/images/user/'. $customer_curent->avatar )}}" >
+            @else
         <img src="{{asset('img/user.PNG')}}" >
+        @endif
     <h2>Avarta</h2>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avatarModal">
         Edit Avarta
