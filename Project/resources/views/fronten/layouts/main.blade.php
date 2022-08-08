@@ -193,7 +193,7 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="{{route('search')}}" method="GET">
+                            <form action="{{ route('search') }}" method="GET">
                                 @csrf
                                 <div class="hero__search__categories">
                                     Tìm Kiếm
@@ -205,6 +205,59 @@
                                 <button type="submit" class="site-btn">Tìm</button>
                             </form>
                         </div>
+                        <div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="site-btn" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Lọc
+                            </button>
+                            <form id="search-form" action="{{ route('search_advance_product') }}" method="POST" >
+                                @csrf
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Tìm Kiếm Nâng cao</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <b>Tên:</b>
+                                                    <input class="form-control" type="text" name="name"
+                                                        placeholder="name" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <b>Cách dùng:</b>
+                                                    <input type="text" class="form-control" name="use">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <b>Mô Tả</b>
+                                                    <input class="form-control" type="text" name="description"
+                                                        placeholder="mô tả" />
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <b>Giá:</b>
+                                                    <input class="form-control" type="text" name="price"
+                                                        placeholder="giá" />
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
                         <div class="hero__search__phone">
                             {{-- <div class="hero__search__phone__icon">
                             </div> --}}
@@ -303,7 +356,7 @@
                 </div>
             </div>
         </div>
-        
+
     </footer>
 
     <!-- Js Plugins -->

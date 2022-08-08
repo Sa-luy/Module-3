@@ -1,11 +1,8 @@
 @extends('fronten.layouts.main')
 @section('hot_product')
-<h1>list search</h1>
-@extends('fronten.layouts.main')
-@section('hot_product')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="productsearch">
-    <h1>kjbhg,hgf</h1>
+    <h1><b>Danh Sách tìm kiếm</b></h1>
     <div class="row">
     @foreach ($search_products as $product)
     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
@@ -70,5 +67,5 @@
         });
     }
 </script>
-@endsection
+
 @endsection
