@@ -1,6 +1,7 @@
 @extends('fronten.layouts.main')
 @section('hot_product')
 @if (!empty($search_products))
+<<<<<<< HEAD
 <table class="table table-striped table-hover">
 <thead>
   <tr>
@@ -33,3 +34,11 @@
 
 
 @endsection
+=======
+<p>123</p>
+    
+@endif
+<table class="table table-striped table-hover">
+
+</table>
+>>>>>>> 82f006ab2bbdfb020a1922c3523d0087359324b0

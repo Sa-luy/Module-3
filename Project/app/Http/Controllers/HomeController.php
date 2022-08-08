@@ -81,7 +81,11 @@ class HomeController extends Controller
     
     public function getProductSearch(Request $request)
     {
+<<<<<<< HEAD
         $product = [];
+=======
+        // $product = Product::query();
+>>>>>>> 82f006ab2bbdfb020a1922c3523d0087359324b0
 
         if ($request->name !== null ) {
            $product =  Product::where('name', 'LIKE', '%' . $request->name . '%');
@@ -90,12 +94,20 @@ class HomeController extends Controller
         }
 
         if ($request->status !== null) {
+<<<<<<< HEAD
            $product =  Product::where('status', 'LIKE', '%' . $request->status . '%');
+=======
+           $product =  Product::where('status', $request->status);
+>>>>>>> 82f006ab2bbdfb020a1922c3523d0087359324b0
            $product_status =  $product->get();
            $products[] = $product_status;
         }
         if ($request->description !== null) {
+<<<<<<< HEAD
            $product =  Product::where('description', 'LIKE', '%' . $request->description . '%');
+=======
+           $product =  Product::where('description', $request->description);
+>>>>>>> 82f006ab2bbdfb020a1922c3523d0087359324b0
            $product_description =  $product->get();
            
            $products[] = $product_description;

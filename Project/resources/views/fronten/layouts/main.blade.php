@@ -237,14 +237,22 @@
                                                 <div class="form-group">
                                                     <b>Mô Tả</b>
                                                     <input class="form-control" type="text" name="description"
+<<<<<<< HEAD
                                                         placeholder="mô tả" />
+=======
+                                                        placeholder="description" />
+>>>>>>> 82f006ab2bbdfb020a1922c3523d0087359324b0
 
                                                 </div>
 
                                                 <div class="form-group">
                                                     <b>Giá:</b>
                                                     <input class="form-control" type="text" name="price"
+<<<<<<< HEAD
                                                         placeholder="giá" />
+=======
+                                                        placeholder="price" />
+>>>>>>> 82f006ab2bbdfb020a1922c3523d0087359324b0
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

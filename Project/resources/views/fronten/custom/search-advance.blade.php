@@ -18,7 +18,11 @@
             </div>
             <div class="form-group">
                 <div>Description</div>
+<<<<<<< HEAD
                 <input class="form-control" type="text" name="description" placeholder="mô tả" />
+=======
+                <input class="form-control" type="text" name="description" placeholder="description" />
+>>>>>>> 82f006ab2bbdfb020a1922c3523d0087359324b0
 
             </div>
 
