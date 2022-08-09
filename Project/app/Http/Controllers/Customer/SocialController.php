@@ -49,7 +49,7 @@ public function callback($provider)
 
  
 
-    return redirect()->route('customer.homecustomer.home');
+    return redirect()->route('customer.home');
 
  
 

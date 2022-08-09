@@ -67,7 +67,7 @@ Route::prefix('customer')->group(function () {
     ->middleware(['customer:customer', 'PreventBackHistory']);
  
  
-    Route::view('/home', 'fronten.homepage')->name('customer.home')->middleware(['customer', 'PreventBackHistory']);
+    Route::view('/home', 'fronten.homepage')->name('customer.home')->middleware([ 'PreventBackHistory']);
     Route::post('customer-order',[CustomerOrderController::class,'customerOrder'])->name('customerOrder')->middleware('customer');
 
   Route::get('/register', [CustomerController::class, 'register'])->name('customer.register');
