@@ -1,5 +1,6 @@
 @extends('fronten.layouts.main')
 @section('hot_product')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="row">
     <div class="col-8">
         @if ($customer_curent->avatar)
@@ -14,14 +15,14 @@
 </div>
 <div class="col-4">
     <p>Tên:</p>
-    <b>{{$customer_curent->name}}</b>
-    <p> Số Điện thoại</p>
-    <b>{{$customer_curent->phone}}</b>
+  <p><b>{{$customer_curent->name}}</b> </p>  
+    <p> Số Điện thoại:</p>
+   <p><b>{{$customer_curent->phone}}</b> </p> 
 
-    <p> Email</p>
-    <b>{{$customer_curent->email}}</b>
-    <p> Địa chỉ</p>
-    <b>{{$customer_curent->address}}</b>
+    <p> Email:</p>
+   <p><b>{{$customer_curent->email}}</b> </p> 
+    <p> Địa chỉ:</p>
+  <p><b>{{$customer_curent->address}}</b> </p> 
 </div>
     
 </div>
@@ -36,7 +37,9 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="file" name="avatar"/>
+                     <img type="hidden" width="120px" height="100px" id="blah" src="#" alt="your image" /> <br>
+            <input accept="image/*" type='file' id="imgInp" name="avatar" />
+              
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -46,4 +49,17 @@
         </div>
       </div>
 </form>
+<script>
+  jQuery(document).ready(function() {
+    $('#blah').hide();
+      jQuery('#imgInp').change(function() {
+          const file = jQuery(this)[0].files;
+          if (file[0]) {
+              jQuery('#blah').attr('src', URL.createObjectURL(file[0]));
+              $('#blah').show();
+              $('#imgInp').hide();
+          }
+      });
+  });
+</script>
 @endsection

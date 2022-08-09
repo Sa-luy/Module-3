@@ -1,12 +1,12 @@
 @extends('admin.main');
 @section('content')
     <h1>
-        Danh mục Sản Phẩm</h1>
+        List Category</h1>
     <div class="row">
         <div class="col">
             @can('create', \App\Models\Category::class)
 
-            <a href="{{ route('category.create') }}" class="btn btn-primary ">THÊM</a>
+            <a href="{{ route('category.create') }}" class="btn btn-primary ">Add</a>
             @endcan
         </div>
         <div class="col">
@@ -28,7 +28,7 @@
                 @can('delete', \App\Models\Category::class)
                 <a href="{{ route('category-trashed') }}" class="btn btn-sm btn-danger">
                     <button type="subit" class="btn btn-labeled btn-danger">
-                        <span class="btn-label"><i class="fa fa-trash"></i>Đã xóa</span></button></a>
+                        <span class="btn-label"><i class="fa fa-trash"></i>Trash</span></button></a>
                         @endcan
             </span>
         </div>
@@ -36,10 +36,10 @@
     <table class="table table-striped table-hover align-middle">
         <thead>
             <tr>
-                <th scope="col">STT</th>
-                <th scope="col">Tên danh mục</th>
-                <th scope="col">số lượng sản phẩm</th>
-                <th scope="col" class="text-center">Thao tác</th>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col" class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -100,7 +100,7 @@
             let url = $(this).data('url');
             let id = $(this).data('id');
             Swal.fire({
-                title: "Are you sure delete {{$category->name}}?",
+                title: "Are you sure delete ?",
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,

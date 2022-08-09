@@ -85,15 +85,11 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                {{-- @if (!empty($user))
-                                    <a href="#"><i class='bx bx-heart'></i>{{ Auth::user()->name }}</a>
-                                @else
-                                    <a href="{{ route('customer.login') }}"><i class='bx bxs-user-circle'></i>Login</a>
-                                @endif --}}
+                              
                                 @if(Auth::guard('customer')->check())
                                     <li><a href="{{route('profile')}}"><i class="fa fa-user-in" aria-hidden="true"></i>Info</a></li>
                                     @else
-                                    {{-- <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li> --}}
+                                   
                                     <li><a href="{{ route('customer.login') }}"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng nhập</a></li>
                                     @endif
 
@@ -175,7 +171,7 @@
                         </div>
                         <ul>
                             @foreach ($categories_home as $category)
-                                <li><a
+                                <li><a style="text-decoration: none"
                                         href="{{ route('guest.category_show', $category->id) }}">{{ $category->name }}</a>
                                 </li>
                             @endforeach
@@ -188,7 +184,7 @@
                         </div>
                         <ul>
                             @foreach ($products_home as $product)
-                                <li><a style=""
+                                <li><a style="text-decoration: none"
                                         href="{{ route('guest.product_show', $product->id) }}">{{ $product->name }}
                                     </a></li>
                             @endforeach

@@ -3,7 +3,7 @@
         <a href="#!" class="menu-toggle">
             <i class="fas fa-bars"></i>
         </a>
-        <a href="{{route('dashboard')}}" class="easion-logo"><i class="fas fa-sun"></i> <span>Easion</span></a>
+        <a href="{{route('dashboard')}}" class="easion-logo"><i class="fas fa-sun"></i> <span>TMH</span></a>
     </header>
     <nav class="dash-nav-list">
         <a href="{{route('dashboard')}}" class="dash-nav-item">

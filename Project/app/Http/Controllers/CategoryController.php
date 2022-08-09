@@ -189,7 +189,7 @@ class CategoryController extends Controller
             $category= Category::withTrashed()->find($id);
             $product_categories=$category->products;
             foreach ($product_categories as $key => $product_category) {
-            $product_category->category_id= null;
+            $product_category->category_id= 37;
             $product_category->save();
             // dd($product_category);
             }

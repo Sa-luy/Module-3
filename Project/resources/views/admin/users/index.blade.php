@@ -1,11 +1,11 @@
 @extends('admin.main');
 @section('content')
     <div>
-        <h3>Danh Sách Người dùng</h3>
+        <h3>User List</h3>
         <div class="row">
             <div class="col">
                 @can('create', App\models\User::class)
-                    <a href="{{ route('user.create') }}" class="btn btn-primary ">THÊM</a>
+                    <a href="{{ route('user.create') }}" class="btn btn-primary ">Add</a>
                 @endcan
             </div>
             <div class="col">
@@ -16,7 +16,7 @@
             <div class="col">
                 @can('delete', App\models\User::class)
                 <a href="{{ route('user-trashed') }}"> <button type="subit" class="btn btn-labeled btn-danger">
-                        <span class="btn-label"><i class="fa fa-trash"></i>Thùng Rác</span>
+                        <span class="btn-label"><i class="fa fa-trash"></i>Trash</span>
                     </button>
                 </a>
                 @endcan
@@ -29,10 +29,10 @@
             <thead>
                 <tr>
                     <td>#</td>
-                    <td>Tên</td>
+                    <td>Name</td>
                     <td>Email</td>
-                    <td> Số Điện Thoại</td>
-                    <td> Thao tác</td>
+                    <td> Phone</td>
+                    <td> Action</td>
                 </tr>
             </thead>
             <tbody>
